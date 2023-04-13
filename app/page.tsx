@@ -1,11 +1,11 @@
-import { Inter } from 'next/font/google';
+'use client';
 
-const inter = Inter({ subsets: ['latin'] });
+import AddPost from './AddPost';
 
 export default function Home() {
   return (
     <main>
-      <h1 className="">HELLO WORLD</h1>
+      <AddPost />
     </main>
   );
 }
