@@ -30,7 +30,7 @@ export default async function handler(
     }
     if (!title.length) {
       return res.status(403).json({
-        message: 'Post cannot be empty!',
+        message: 'Post cannot be empty! 😱',
       });
     }
 
@@ -42,7 +42,7 @@ export default async function handler(
           userId: prismaUser.id,
         },
       });
-      res.status(200).json(result);
+      res.status(200).json({ result, message: 'Post Created! ✨' });
     } catch (err) {
       res.status(403).json({ err: 'Error has occurerd while creating post' });
     }

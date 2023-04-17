@@ -2,28 +2,38 @@
 
 import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
+import { toast } from 'react-hot-toast';
 
 export default function AddPost() {
   const [title, setTitle] = useState<string>('');
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
+  let toastPostID: string = '';
 
   const { mutate } = useMutation(
     async (title: string) => await axios.post('/api/posts/addPost', { title }),
     {
       onError: (error) => {
-        console.log(error);
+        if (error instanceof AxiosError) {
+          toast.error(error?.response?.data.message, { id: toastPostID });
+          setTimeout(() => {
+            setIsDisabled(false);
+          }, 3000);
+        }
       },
       onSuccess: (data) => {
-        console.log(data);
         setTitle('');
-        setIsDisabled(false);
+        toast.success(data?.data?.message, { id: toastPostID });
+        setTimeout(() => {
+          setIsDisabled(false);
+        }, 3000);
       },
     }
   );
 
   const submitPost = async (e: React.FormEvent) => {
     e.preventDefault();
+    toastPostID = toast.loading('Creating your post', { id: toastPostID });
     setIsDisabled(true);
     mutate(title);
   };
@@ -32,7 +42,9 @@ export default function AddPost() {
     <form onSubmit={submitPost}>
       <div className="flex flex-col my-4 bg-white p-8 rounded-md">
         <textarea
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+            setTitle(e.target.value)
+          }
           name="title"
           value={title}
           placeholder="What's on your mind?"
