@@ -35,7 +35,7 @@ export default function Post({ avatar, name, postTitle, id, comments }: Props) {
       <div className="flex gap-4 cursor-pointer items-center">
         <Link href={`/post/${id}`}>
           <p className="text-sm font-bold text-gray-700">
-            Comments ({comments?.length})
+            {comments?.length} Comments
           </p>
         </Link>
       </div>
