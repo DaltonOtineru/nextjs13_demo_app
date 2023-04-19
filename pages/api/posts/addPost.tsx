@@ -19,8 +19,15 @@ export default async function handler(
 
     // get user
     const prismaUser = await prisma.user.findUnique({
-      where: { email: session?.user?.email },
+      where: { email: session?.user?.email || '' },
     });
+
+    // check if user
+    if (!prismaUser) {
+      return res.status(403).json({
+        message: 'Please sign in to make a post!',
+      });
+    }
 
     // check title
     if (title.length > 300) {
@@ -30,7 +37,7 @@ export default async function handler(
     }
     if (!title.length) {
       return res.status(403).json({
-        message: 'Post cannot be empty! 😱',
+        message: 'Post cannot be empty!',
       });
     }
 
