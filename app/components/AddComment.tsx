@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import toast from 'react-hot-toast';
 
 type PostProps = {
@@ -15,12 +15,31 @@ export default function AddComment({ id }: PostProps) {
 
   const queryClient = useQueryClient();
 
-  const { mutate } = useMutation(async (data) =>
-    axios.post('/api/posts/addComment', title)
+  const { mutate } = useMutation(
+    async (title: string) =>
+      await axios.post('/api/posts/addComment', { title, id }),
+    {
+      onError: (error) => {
+        if (error instanceof AxiosError) {
+          console.log('ERROR COMMENT', error);
+          toast.error('There was an error with your comment!');
+        }
+      },
+      onSuccess: (data) => {
+        setTitle('');
+        toast.success('Comment was posted!');
+        // queryClient.invalidateQueries([''])
+      },
+    }
   );
 
+  const submitComment = async (e: React.FormEvent) => {
+    e.preventDefault();
+    mutate(title);
+  };
+
   return (
-    <form className="my-8">
+    <form className="my-8" onSubmit={submitComment}>
       <h3>Add a comment</h3>
       <div className="flex flex-col my-2">
         <input
