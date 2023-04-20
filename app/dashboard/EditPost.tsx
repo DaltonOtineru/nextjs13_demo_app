@@ -5,6 +5,7 @@ import axios from 'axios';
 import Image from 'next/image';
 import { useState } from 'react';
 import Toggle from './Toggle';
+import { toast } from 'react-hot-toast';
 
 type EditProps = {
   id: string;
@@ -27,21 +28,24 @@ export default function EditPost({
 }: EditProps) {
   const [toggle, setToggle] = useState(false);
   const queryClient = useQueryClient();
+  let deletePostID: string = 'hello';
 
   //delete post
   const { mutate } = useMutation(
     async (id: string) => await axios.post('/api/posts/deletePost', { id }),
     {
       onError: (error) => {
-        console.log('ERROR DELETING POST', error);
+        toast.error('An error occured', { id: deletePostID });
       },
       onSuccess: (data) => {
+        toast.success(data?.data?.message, { id: deletePostID });
         queryClient.invalidateQueries(['auth-posts']);
       },
     }
   );
 
   const deletePost = () => {
+    deletePostID = toast.loading('Deleting Post', { id: deletePostID });
     mutate(id);
   };
   return (

@@ -20,7 +20,7 @@ export default async function handler(
           id: postId,
         },
       });
-      return res.status(200).json(result);
+      return res.status(200).json({ result, message: 'Post deleted!' });
     } catch (err) {
       res.status(403).json({ err: 'An error occurred trying to delete post' });
     }

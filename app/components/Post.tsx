@@ -4,10 +4,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 type Props = {
+  id: string;
   avatar: string;
   name: string;
   postTitle: string;
-  id: string;
   comments?: {
     createdAt: string;
     id: string;
