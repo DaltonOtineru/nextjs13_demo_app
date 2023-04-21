@@ -28,14 +28,19 @@ export default function AddComment({ id }: PostProps) {
       onSuccess: (data) => {
         setTitle('');
         toast.success('Comment was posted!');
-        // queryClient.invalidateQueries([''])
+        queryClient.invalidateQueries(['comments']);
+        queryClient.invalidateQueries(['detail-post']);
       },
     }
   );
 
   const submitComment = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsDisabled(true);
     mutate(title);
+    setTimeout(() => {
+      setIsDisabled(false);
+    }, 3000);
   };
 
   return (

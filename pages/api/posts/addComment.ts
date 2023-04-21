@@ -51,7 +51,7 @@ export default async function handler(
           postId,
         },
       });
-      console.log('API ROUTE', req.body);
+
       res.status(200).json({ result, message: 'Comment posted! ✨' });
     } catch (err) {
       res

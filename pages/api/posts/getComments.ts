@@ -7,23 +7,28 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (req.method === 'GET') {
+  if (req.method === 'POST') {
     const session = await getServerSession(req, res, authOptions);
     if (!session) {
       return res.status(401).json({ message: 'Please sign in!' });
     }
-
     // get comments
     try {
       const data = await prisma.post.findUnique({
         where: {
-          id: 'clglcizwf0001sq5hufkpjwce',
+          id: req.body.postId.postId,
         },
         include: {
-          comments: true,
+          comments: {
+            include: {
+              user: true,
+            },
+            orderBy: {
+              createdAt: 'desc',
+            },
+          },
         },
       });
-      console.log(data);
       return res.status(200).json(data);
     } catch (err) {
       res.status(403).json({ err: 'An error occurred' });

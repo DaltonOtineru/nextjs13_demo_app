@@ -13,18 +13,17 @@ type URL = {
   };
 };
 
-const fetchDetails = async (slug: string) => {
-  const response = await axios.get(`/api/posts/${slug}`);
-  return response.data;
-};
-
 export default function PostDetail(url: URL) {
+  const fetchDetails = async (slug: string) => {
+    const response = await axios.get(`/api/posts/${slug}`);
+    return response.data;
+  };
+
   const { data, isLoading } = useQuery<PostType>({
     queryKey: ['detail-post'],
     queryFn: () => fetchDetails(url.params.slug),
   });
   if (isLoading) return 'Loading...';
-  console.log(data?.id);
 
   return (
     <div>
@@ -33,13 +32,10 @@ export default function PostDetail(url: URL) {
         name={data?.user.name!}
         avatar={data?.user.image!}
         postTitle={data?.title!}
-        comments={data?.comments!}
+        comments={data?.comments}
       />
       <AddComment id={data?.id} />
-      {/* <Comments /> */}
-      {data?.comments?.map((comment) => (
-        <p key={comment.id}>{comment?.message}</p>
-      ))}
+      <Comments postId={url.params.slug} />
     </div>
   );
 }
