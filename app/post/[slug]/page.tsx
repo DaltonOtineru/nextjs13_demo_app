@@ -26,16 +26,26 @@ export default function PostDetail(url: URL) {
   if (isLoading) return 'Loading...';
 
   return (
-    <div>
-      <Post
-        id={data?.id!}
-        name={data?.user.name!}
-        avatar={data?.user.image!}
-        postTitle={data?.title!}
-        comments={data?.comments}
-      />
-      <AddComment id={data?.id} />
-      <Comments postId={url.params.slug} />
-    </div>
+    <>
+      {!isLoading && (
+        <main className="w-full flex flex-col items-center px-6 sm:px-0 my-4">
+          <div className="max-w-xl w-full">
+            <h1 className="font-bold text-transparent text-6xl bg-clip-text bg-gradient-to-tr  from-[20%] from-[#FF4ECD] to-70% to-[#0072F5] w-fit">
+              Thread
+            </h1>
+            <Post
+              id={data?.id!}
+              name={data?.user.name!}
+              avatar={data?.user.image!}
+              postTitle={data?.title!}
+              comments={data?.comments}
+              createdAt={data?.createdAt!}
+            />
+            <AddComment id={data?.id} />
+            <Comments postId={url.params.slug} />
+          </div>
+        </main>
+      )}
+    </>
   );
 }
