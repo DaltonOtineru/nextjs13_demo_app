@@ -50,7 +50,7 @@ export default function Post({
       </div>
       <div className="flex gap-4 cursor-pointer items-center">
         <Link
-          href={`/post/${id}`}
+          href={`/posts/${id}`}
           onClick={() => queryClient.invalidateQueries(['detail-post'])}
         >
           <p className="text-sm text-gray-500">{comments?.length} Comments</p>

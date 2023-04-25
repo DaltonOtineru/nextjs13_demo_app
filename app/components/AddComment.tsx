@@ -15,8 +15,8 @@ export default function AddComment({ id }: PostProps) {
   const { user } = session || {};
 
   const [title, setTitle] = useState('');
-  const [isDisabled, setIsDisabled] = useState(false);
-  const [outline, setOutline] = useState(false);
+  const [isDisabled, setIsDisabled] = useState<boolean>(false);
+  const [outline, setOutline] = useState<boolean>(false);
 
   const queryClient = useQueryClient();
 
@@ -62,7 +62,7 @@ export default function AddComment({ id }: PostProps) {
           placeholder="Comment here..."
           contentEditable
           className={`px-3 py-2 h-full text-lg rounded-xl my-2 focus:outline-none border-2 border-gray-300 resize-none transition-all duration-300 ease  ${
-            outline && 'border-black'
+            outline && '!border-black'
           } focus:border-black`}
         />
       </div>

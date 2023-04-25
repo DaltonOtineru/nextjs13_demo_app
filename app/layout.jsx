@@ -5,7 +5,7 @@ import QueryWrapper from './QueryWrapper';
 
 const roboto = Roboto({
   subsets: ['latin'],
-  weight: ['400', '700'],
+  weight: ['400', '500', '700'],
   variable: '--font-roboto',
 });
 

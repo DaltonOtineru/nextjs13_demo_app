@@ -14,7 +14,6 @@ type Props = {
 export default function Comments(postId: Props) {
   const { data: session } = useSession();
   const { user } = session || {};
-  console.log(user);
 
   const fetchComments = async () => {
     const response = await axios.post('/api/posts/getComments', { postId });

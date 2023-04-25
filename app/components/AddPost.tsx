@@ -12,6 +12,7 @@ export default function AddPost() {
 
   const [title, setTitle] = useState<string>('');
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
+  const [outline, setOutline] = useState<boolean>(false);
   const queryClient = useQueryClient();
   let toastPostID: string = 'hello';
 
@@ -54,10 +55,12 @@ export default function AddPost() {
           }
           name="title"
           value={title}
+          onMouseEnter={() => setOutline(true)}
+          onMouseLeave={() => setOutline(false)}
           placeholder="What's on your mind?"
-          className={`p-4 text-lg rounded-xl mt-2 border-2 border-gray-300 focus:outline-none resize-none ${
+          className={`p-4 text-lg rounded-xl mt-2 border-2 border-gray-300 focus:outline-none resize-none focus:border-black transition-all duration-300 ease ${
             !user && 'cursor-not-allowed'
-          }`}
+          } ${outline && '!border-black'}`}
         />
       </div>
       <div className="space-y-2 flex items-center justify-between -mt-2">

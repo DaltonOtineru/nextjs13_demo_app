@@ -1,9 +1,9 @@
 'use client';
 import axios from 'axios';
-import AddPost from './components/AddPost';
+import AddPost from '../components/AddPost';
 import { useQuery } from '@tanstack/react-query';
-import Post from './components/Post';
-import { PostsType } from './types/Posts';
+import Post from '../components/Post';
+import { PostsType } from '../types/Posts';
 
 const allPosts = async () => {
   const response = await axios.get('/api/posts/getPosts');
