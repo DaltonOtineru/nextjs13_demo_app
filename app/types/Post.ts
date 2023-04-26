@@ -23,4 +23,5 @@ export type PostType = {
       name: string;
     };
   }[];
+  likes?: [];
 };

@@ -23,7 +23,12 @@ export default function PostDetail(url: URL) {
     queryKey: ['detail-post'],
     queryFn: () => fetchDetails(url.params.slug),
   });
-  if (isLoading) return 'Loading...';
+  if (isLoading)
+    return (
+      <div className="flex h-[50vh] w-screen items-center justify-center">
+        <div className="loader"></div>
+      </div>
+    );
 
   return (
     <>
@@ -40,6 +45,7 @@ export default function PostDetail(url: URL) {
               postTitle={data?.title!}
               comments={data?.comments}
               createdAt={data?.createdAt!}
+              likes={data?.likes}
             />
             <AddComment id={data?.id} />
             <Comments postId={url.params.slug} />

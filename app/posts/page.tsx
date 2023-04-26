@@ -22,7 +22,12 @@ export default function Home(url: URL) {
     queryKey: ['posts'],
   });
   if (error) return error;
-  if (isLoading) return 'Loading...';
+  if (isLoading)
+    return (
+      <div className="flex h-[50vh] w-screen items-center justify-center">
+        <div className="loader"></div>
+      </div>
+    );
 
   return (
     <main className="w-full flex flex-col items-center px-6 sm:px-0 py-4">
@@ -40,6 +45,7 @@ export default function Home(url: URL) {
             comments={post.comments}
             id={post.id}
             createdAt={post.createdAt}
+            likes={post.likes}
           />
         ))}
       </div>

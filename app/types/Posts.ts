@@ -14,4 +14,5 @@ export type PostsType = {
     postId: string;
     userId: string;
   }[];
+  likes?: [];
 };

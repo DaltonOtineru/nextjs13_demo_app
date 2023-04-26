@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { formatDate } from '@/lib/utils';
 import { HeartIcon } from './Icons/Heart';
+import axios, { AxiosError } from 'axios';
+import { useSession } from 'next-auth/react';
 
 type Props = {
   id: string;
@@ -18,6 +20,7 @@ type Props = {
     postId: string;
     userId: string;
   }[];
+  likes?: [];
 };
 
 export default function Post({
@@ -27,8 +30,36 @@ export default function Post({
   id,
   comments,
   createdAt,
+  likes,
 }: Props) {
+  const { data: session } = useSession();
+  const { user } = session || {};
+  const email = user?.email;
+
   const queryClient = useQueryClient();
+  const alreadyLiked =
+    (session && likes?.some((like: any) => like?.email === email)) || false;
+
+  const { mutate } = useMutation(
+    async (id: string) => await axios.post('/api/posts/addLike', { id, email }),
+    {
+      onError: (error) => {
+        if (error instanceof AxiosError) {
+          console.log('LIKE AXIOS ERROR');
+        }
+      },
+      onSuccess: (data) => {
+        queryClient.invalidateQueries(['posts']);
+        queryClient.invalidateQueries(['detail-post']);
+
+        console.log('SUCCESS LIKE');
+      },
+    }
+  );
+
+  const addLike = async () => {
+    mutate(id);
+  };
 
   return (
     <div className="border-[1px] border-gray-300 my-8 p-4 rounded-xl">
@@ -55,7 +86,10 @@ export default function Post({
         >
           <p className="text-sm text-gray-500">{comments?.length} Comments</p>
         </Link>
-        <HeartIcon onClick={() => {}} fill={false} />
+        <div className="flex gap-1">
+          <HeartIcon onClick={addLike} fill={alreadyLiked} />
+          <span className="text-gray-500">{likes ? likes.length : '0'}</span>
+        </div>
       </div>
     </div>
   );
