@@ -14,9 +14,10 @@ export default function AddComment({ id }: PostProps) {
   const { data: session } = useSession();
   const { user } = session || {};
 
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState<string>('');
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
   const [outline, setOutline] = useState<boolean>(false);
+  const [focus, setFocus] = useState<boolean>(false);
 
   const queryClient = useQueryClient();
 
@@ -28,13 +29,19 @@ export default function AddComment({ id }: PostProps) {
         if (error instanceof AxiosError) {
           console.log('ERROR COMMENT', error);
           toast.error('There was an error with your comment!');
+          setTimeout(() => {
+            setIsDisabled(false);
+          }, 3000);
         }
       },
-      onSuccess: (data) => {
+      onSuccess: ({ data }) => {
         setTitle('');
-        toast.success('Comment was posted!');
+        toast.success(data.message);
         queryClient.invalidateQueries(['comments']);
         queryClient.invalidateQueries(['detail-post']);
+        setTimeout(() => {
+          setIsDisabled(false);
+        }, 2000);
       },
     }
   );
@@ -43,9 +50,6 @@ export default function AddComment({ id }: PostProps) {
     e.preventDefault();
     setIsDisabled(true);
     mutate(title);
-    setTimeout(() => {
-      setIsDisabled(false);
-    }, 3000);
   };
 
   return (
@@ -55,15 +59,16 @@ export default function AddComment({ id }: PostProps) {
           onChange={(e) => setTitle(e.target.value)}
           onMouseEnter={() => setOutline(true)}
           onMouseLeave={() => setOutline(false)}
+          onFocus={() => setFocus(true)}
+          onBlur={() => setFocus(false)}
           value={title}
-          // type="text"
           name="title"
           role="textbox"
-          placeholder="Comment here..."
+          placeholder={`${focus ? 'Comment here...' : 'Comment here...'}`}
           contentEditable
           className={`px-3 py-2 h-full text-lg rounded-xl my-2 focus:outline-none border-2 border-gray-300 resize-none transition-all duration-300 ease  ${
-            outline && '!border-black'
-          } focus:border-black`}
+            (outline || focus) && '!border-black'
+          } `}
         />
       </div>
       <div className="gap-2 flex items-center justify-between">
@@ -72,7 +77,7 @@ export default function AddComment({ id }: PostProps) {
           className={`text-md bg-blue-600 text-white py-3 px-6 rounded-xl disabled:opacity-25 min-w-[12rem] text-sm`}
           type="submit"
         >
-          Comment
+          {isDisabled ? <div className="post__loader" /> : 'Comment'}
         </button>
         <p
           className={`${

@@ -7,6 +7,7 @@ import { formatDate } from '@/lib/utils';
 import { HeartIcon } from './Icons/Heart';
 import axios, { AxiosError } from 'axios';
 import { useSession } from 'next-auth/react';
+import { toast } from 'react-hot-toast';
 
 type Props = {
   id: string;
@@ -46,13 +47,13 @@ export default function Post({
       onError: (error) => {
         if (error instanceof AxiosError) {
           console.log('LIKE AXIOS ERROR');
+          toast.success(error.message);
         }
       },
-      onSuccess: (data) => {
+      onSuccess: ({ data }) => {
         queryClient.invalidateQueries(['posts']);
         queryClient.invalidateQueries(['detail-post']);
-
-        console.log('SUCCESS LIKE');
+        toast.success(data.message);
       },
     }
   );

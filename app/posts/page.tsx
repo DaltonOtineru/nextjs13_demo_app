@@ -4,6 +4,7 @@ import AddPost from '../components/AddPost';
 import { useQuery } from '@tanstack/react-query';
 import Post from '../components/Post';
 import { PostsType } from '../types/Posts';
+import Loader from '../components/Loader';
 
 const allPosts = async () => {
   const response = await axios.get('/api/posts/getPosts');
@@ -22,12 +23,7 @@ export default function Home(url: URL) {
     queryKey: ['posts'],
   });
   if (error) return error;
-  if (isLoading)
-    return (
-      <div className="flex h-[50vh] w-screen items-center justify-center">
-        <div className="loader"></div>
-      </div>
-    );
+  if (isLoading) return <Loader />;
 
   return (
     <main className="w-full flex flex-col items-center px-6 sm:px-0 py-4">

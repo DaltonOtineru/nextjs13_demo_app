@@ -13,10 +13,11 @@ export default function AddPost() {
   const [title, setTitle] = useState<string>('');
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
   const [outline, setOutline] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const queryClient = useQueryClient();
   let toastPostID: string = 'hello';
 
-  const { mutate } = useMutation(
+  const { mutate, isLoading } = useMutation(
     async (title: string) => await axios.post('/api/posts/addPost', { title }),
     {
       onError: (error) => {
@@ -33,12 +34,13 @@ export default function AddPost() {
         queryClient.invalidateQueries(['posts']);
         setTimeout(() => {
           setIsDisabled(false);
-        }, 3000);
+        }, 2000);
       },
     }
   );
 
   const submitPost = async (e: React.FormEvent) => {
+    setLoading(true);
     e.preventDefault();
     toastPostID = toast.loading('Creating your post', { id: toastPostID });
     setIsDisabled(true);
@@ -66,12 +68,12 @@ export default function AddPost() {
       <div className="space-y-2 flex items-center justify-between -mt-2">
         <button
           disabled={isDisabled}
-          className={`text-md bg-blue-600 text-white py-3 px-6 rounded-xl text-sm disabled:opacity-25 min-w-[12rem] ${
+          className={` bg-blue-600 text-white py-3 px-6 rounded-xl text-sm disabled:opacity-25 min-w-[12rem] ${
             !user && 'bg-[#ECEEF0] text-[#7E868C] cursor-default'
           }`}
           type="submit"
         >
-          Post
+          {isDisabled ? <div className="post__loader" /> : 'Post'}
         </button>
         <p
           className={`${

@@ -42,7 +42,7 @@ export default async function handler(
           likes: true,
         },
       });
-      const alreadyLiked =
+      const alreadyLiked: boolean =
         session && likes?.some((like: any) => like?.userId === userId);
 
       if (!alreadyLiked) {
@@ -63,7 +63,7 @@ export default async function handler(
             postId: postId,
           },
         });
-        res.status(200).json({ result, message: 'Your like was removed 😱' });
+        res.status(200).json({ result, message: 'Your like was removed! 😱' });
       }
     } catch (err) {
       res.status(403).json({ err: 'Error has occurerd while liking the post' });
