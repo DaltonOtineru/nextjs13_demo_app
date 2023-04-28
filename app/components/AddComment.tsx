@@ -64,7 +64,7 @@ export default function AddComment({ id }: PostProps) {
           value={title}
           name="title"
           role="textbox"
-          placeholder={`${focus ? 'Comment here...' : 'Comment here...'}`}
+          placeholder={`Comment here...`}
           contentEditable
           className={`px-3 py-2 h-full text-lg rounded-xl my-2 focus:outline-none border-2 border-gray-300 resize-none transition-all duration-300 ease  ${
             (outline || focus) && '!border-black'

@@ -11,7 +11,7 @@
   border-radius: 50%;
   width: 120px;
   height: 120px;
-  animation: spin 2s linear infinite;
+  animation: spin 700ms linear infinite;
   margin: auto;
 }
 .post__loader {
@@ -21,6 +21,17 @@
   border-radius: 50%;
   width: 20px;
   height: 20px;
+  animation: spin 800ms linear infinite;
+  margin: auto;
+}
+
+.like__loader {
+  border: 2px solid #f31260;
+  border-top: 2px solid transparent;
+  background-color: transparent;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
   animation: spin 800ms linear infinite;
   margin: auto;
 }

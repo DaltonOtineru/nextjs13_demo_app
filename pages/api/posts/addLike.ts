@@ -29,7 +29,7 @@ export default async function handler(
 
     const userId: string = prismaUser.id;
     const postId: string = req.body.id;
-    const email: string = req.body.email;
+    const email: string = req.body.currentUserEmail;
 
     // either create like or delete like depending on if user
     // has already liked the current post

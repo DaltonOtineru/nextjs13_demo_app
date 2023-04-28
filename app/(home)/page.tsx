@@ -31,7 +31,7 @@ export default async function Home() {
         <div className="flex-col gap-y-1 leading-none">
           <p>Dalton Otineru</p>
           <a
-            href="github.com/daltonotineru"
+            href="https://github.com/daltonotineru"
             target="_blank"
             className="text-[#0072F5]"
           >

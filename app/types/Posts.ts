@@ -7,6 +7,7 @@ export type PostsType = {
   user: {
     name: string;
     image: string;
+    email: string;
   };
   comments?: {
     createdAt: string;

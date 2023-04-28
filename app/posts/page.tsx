@@ -37,6 +37,7 @@ export default function Home(url: URL) {
             key={post.id}
             name={post.user.name}
             avatar={post.user.image}
+            email={post.user.email}
             postTitle={post.title}
             comments={post.comments}
             id={post.id}

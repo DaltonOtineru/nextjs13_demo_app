@@ -9,6 +9,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Link from 'next/link';
 import { BsArrowLeft } from 'react-icons/bs';
+import { useSelectedLayoutSegment } from 'next/navigation';
 
 type URL = {
   params: {
@@ -52,6 +53,7 @@ export default function PostDetail(url: URL) {
               comments={data?.comments}
               createdAt={data?.createdAt!}
               likes={data?.likes}
+              email={data?.user?.email!}
             />
             <AddComment id={data?.id} />
             <Comments postId={url.params.slug} />

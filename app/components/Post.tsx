@@ -8,6 +8,10 @@ import { HeartIcon } from './Icons/Heart';
 import axios, { AxiosError } from 'axios';
 import { useSession } from 'next-auth/react';
 import { toast } from 'react-hot-toast';
+import { useState } from 'react';
+import { DeleteIcon } from './Icons/Delete';
+import Toggle from '../dashboard/Toggle';
+import { useRouter, useSelectedLayoutSegment } from 'next/navigation';
 
 type Props = {
   id: string;
@@ -15,6 +19,7 @@ type Props = {
   name: string;
   postTitle: string;
   createdAt: string;
+  email: string;
   comments?: {
     createdAt: string;
     id: string;
@@ -32,34 +37,76 @@ export default function Post({
   comments,
   createdAt,
   likes,
+  email,
 }: Props) {
   const { data: session } = useSession();
   const { user } = session || {};
-  const email = user?.email;
+  const currentUserEmail = user?.email;
+
+  const [loading, setLoading] = useState<boolean>(false);
+  const [toggle, setToggle] = useState<boolean>(false);
 
   const queryClient = useQueryClient();
-  const alreadyLiked =
-    (session && likes?.some((like: any) => like?.email === email)) || false;
+  const segment = useSelectedLayoutSegment();
+  const router = useRouter();
 
-  const { mutate } = useMutation(
-    async (id: string) => await axios.post('/api/posts/addLike', { id, email }),
+  // check if the user has already liked the current post
+  const alreadyLiked =
+    (session && likes?.some((like: any) => like?.email === currentUserEmail)) ||
+    false;
+
+  // add or remove like mutation
+  const { mutate: handleLike } = useMutation(
+    async (id: string) =>
+      await axios.post('/api/posts/addLike', { id, currentUserEmail }),
     {
       onError: (error) => {
         if (error instanceof AxiosError) {
           console.log('LIKE AXIOS ERROR');
+          setTimeout(() => {
+            setLoading(false);
+          }, 1000);
           toast.success(error.message);
         }
       },
       onSuccess: ({ data }) => {
         queryClient.invalidateQueries(['posts']);
         queryClient.invalidateQueries(['detail-post']);
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
         toast.success(data.message);
       },
     }
   );
 
+  const { mutate: handleDelete } = useMutation(
+    async (id: string) => await axios.post('/api/posts/deletePost', { id }),
+    {
+      onError: (error) => {
+        if (error instanceof AxiosError) {
+          console.log('POST DELETE ERROR', error.message);
+        }
+      },
+      onSuccess: (data) => {
+        if (segment !== 'posts') {
+          router.push('/posts');
+        }
+        queryClient.invalidateQueries(['posts']);
+        queryClient.invalidateQueries(['detail-post']);
+      },
+    }
+  );
+
+  // set loading and run like mutation
   const addLike = async () => {
-    mutate(id);
+    setLoading(true);
+    handleLike(id);
+  };
+
+  // run delete post mutation
+  const deletePost = async () => {
+    handleDelete(id);
   };
 
   return (
@@ -88,10 +135,25 @@ export default function Post({
           <p className="text-sm text-gray-500">{comments?.length} Comments</p>
         </Link>
         <div className="flex gap-1">
-          <HeartIcon onClick={addLike} fill={alreadyLiked} />
-          <span className="text-gray-500">{likes ? likes.length : '0'}</span>
+          {loading ? (
+            <div className="like__loader" />
+          ) : (
+            <HeartIcon onClick={addLike} fill={alreadyLiked} />
+          )}
+
+          <span
+            className={`${
+              likes?.length !== 0 ? 'text-[#F31260]' : 'text-gray-500'
+            }`}
+          >
+            {likes ? likes.length : '0'}
+          </span>
         </div>
+        {email === currentUserEmail && (
+          <DeleteIcon onClick={() => setToggle(true)} />
+        )}
       </div>
+      {toggle && <Toggle deletePost={deletePost} setToggle={setToggle} />}
     </div>
   );
 }
