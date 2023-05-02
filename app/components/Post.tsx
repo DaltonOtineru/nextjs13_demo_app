@@ -133,7 +133,9 @@ export default function Post({
           href={`/posts/${id}`}
           onClick={() => queryClient.invalidateQueries(['detail-post'])}
         >
-          <p className="text-sm text-gray-500">{comments?.length} Comments</p>
+          <p className="text-sm text-gray-500">
+            {comments?.length} {comments?.length === 1 ? 'Comment' : 'Comments'}
+          </p>
         </Link>
         <div className="flex gap-1">
           {loading ? (
@@ -144,7 +146,9 @@ export default function Post({
 
           <span
             className={`${
-              likes?.length !== 0 ? 'text-[#F31260]' : 'text-gray-500'
+              likes?.length !== 0 && alreadyLiked
+                ? 'text-[#F31260]'
+                : 'text-gray-500'
             }`}
           >
             {likes ? likes.length : '0'}

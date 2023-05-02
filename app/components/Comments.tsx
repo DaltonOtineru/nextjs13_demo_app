@@ -52,9 +52,9 @@ export default function Comments(postId: Props) {
           <div className="my-8">
             <p className="break-all text-gray-900">{comment?.message}</p>
           </div>
-          {user && user?.email === comment?.user?.email && (
+          {/* {user && user?.email === comment?.user?.email && (
             <DeleteIcon onClick={() => {}} />
-          )}
+          )} */}
         </div>
       ))}
     </>
