@@ -3,6 +3,10 @@ import { getServerSession } from 'next-auth';
 import Image from 'next/image';
 import CardGrid from './CardGrid';
 
+export const metadata = {
+  title: 'Next.js 13 Demo App',
+};
+
 export default async function Home() {
   const session = await getServerSession(authOptions);
   console.log(session?.user);

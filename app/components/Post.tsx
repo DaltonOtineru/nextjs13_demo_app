@@ -88,12 +88,13 @@ export default function Post({
           console.log('POST DELETE ERROR', error.message);
         }
       },
-      onSuccess: (data) => {
+      onSuccess: ({ data }) => {
         if (segment !== 'posts') {
           router.push('/posts');
         }
         queryClient.invalidateQueries(['posts']);
         queryClient.invalidateQueries(['detail-post']);
+        toast.success(data.message);
       },
     }
   );
@@ -125,7 +126,7 @@ export default function Post({
         </div>
       </div>
       <div className="my-8">
-        <p className="break-all text-gray-900">{postTitle}</p>
+        <p className=" text-gray-900">{postTitle}</p>
       </div>
       <div className="flex gap-4 cursor-pointer items-center">
         <Link
