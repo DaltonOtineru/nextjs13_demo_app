@@ -1,15 +1,41 @@
+import Image from 'next/image';
+
 export const metadata = {
   title: 'Subscribe | Next.js 13 Demo App',
 };
 
 export default async function Subscribe() {
   return (
-    <section className="w-screen h-screen">
-      <main className="flex items-center justify-center px-4 w-full h-3/4">
-        <h1 className="text-xl text-center">
-          Subscriptions will be available shortly, check back soon!
-        </h1>
-      </main>
-    </section>
+    <main className="max-w-[1300px] mx-auto py-6 px-6">
+      <h1 className="font-bold text-transparent text-6xl bg-clip-text bg-gradient-to-tr from-[#F31260] from-20% to-[#F5A524] to-70% w-fit mt-2 mb-6">
+        Subscribe
+      </h1>
+      <div className="w-full h-[400px] shadow-xl relative rounded-2xl">
+        <Image
+          src="https://images.pexels.com/photos/3975590/pexels-photo-3975590.jpeg"
+          className="w-full h-[400px] object-cover rounded-2xl"
+          priority
+          alt="Subscribe"
+          width={1300}
+          height={400}
+        />
+        <div className="absolute top-0 left-0 right-0 w-full flex flex-col items-start p-4">
+          <span className="text-sm text-[#e8e8e7] mb-1">PRO PLAN</span>
+          <span className="text-2xl font-semibold text-white">
+            Get unlimited posts and comments
+          </span>
+        </div>
+        <div className="absolute bottom-0 left-0 right-0 flex space-between px-4 py-4 bg-[rgb(15_17_20)] bg-opacity-40 subscribe rounded-b-2xl backdrop-blur-[10px]">
+          <div className="flex flex-col justify-center w-full text-xs text-[#d1d1d1] gap-y-1">
+            {/* <span>Available now</span>
+            <span>Use Card 4242 4242 4242 4242 to test</span> */}
+            <span>*Pro plan subscriptions will be available soon*</span>
+          </div>
+          <button className="bg-[rgb(148_249_240)] bg-opacity-[.15] text-[#90EBE1] min-w-fit rounded-full px-5 py-3 cursor-pointer text-xs font-semibold">
+            SUBSCRIBE NOW
+          </button>
+        </div>
+      </div>
+    </main>
   );
 }
