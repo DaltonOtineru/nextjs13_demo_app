@@ -9,7 +9,6 @@ export const metadata = {
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
-  console.log(session?.user);
 
   return (
     <main className="max-w-[1300px] mx-auto py-6 px-6">

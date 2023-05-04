@@ -29,6 +29,13 @@ type Props = {
   likes?: [];
 };
 
+type Likes = {
+  id: string;
+  postId: string;
+  userId: string;
+  email: string;
+};
+
 export default function Post({
   avatar,
   name,
@@ -52,7 +59,8 @@ export default function Post({
 
   // check if the user has already liked the current post
   const alreadyLiked =
-    (session && likes?.some((like: any) => like?.email === currentUserEmail)) ||
+    (session &&
+      likes?.some((like: Likes) => like?.email === currentUserEmail)) ||
     false;
 
   // add or remove like mutation
@@ -62,11 +70,10 @@ export default function Post({
     {
       onError: (error) => {
         if (error instanceof AxiosError) {
-          console.log('LIKE AXIOS ERROR');
           setTimeout(() => {
             setLoading(false);
           }, 1000);
-          toast.success(error.message);
+          toast.error(error?.response?.data.message);
         }
       },
       onSuccess: ({ data }) => {
@@ -101,8 +108,10 @@ export default function Post({
 
   // set loading and run like mutation
   const addLike = async () => {
-    setLoading(true);
-    handleLike(id);
+    if (user) {
+      setLoading(true);
+      handleLike(id);
+    }
   };
 
   // run delete post mutation
@@ -158,7 +167,9 @@ export default function Post({
           <DeleteIcon onClick={() => setToggle(true)} />
         )}
       </div>
-      {toggle && <Toggle deletePost={deletePost} setToggle={setToggle} />}
+      {toggle && (
+        <Toggle deleteFunction={deletePost} setToggle={setToggle} text="post" />
+      )}
     </div>
   );
 }

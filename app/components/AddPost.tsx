@@ -61,14 +61,14 @@ export default function AddPost() {
           onMouseLeave={() => setOutline(false)}
           placeholder="What's on your mind?"
           className={`p-4 text-lg rounded-xl mt-2 border-2 border-gray-300 focus:outline-none resize-none focus:border-black transition-all duration-300 ease ${
-            !user && 'cursor-not-allowed'
-          } ${outline && '!border-black'}`}
+            outline && '!border-black'
+          }`}
         />
       </div>
       <div className="space-y-2 flex items-center justify-between -mt-2">
         <button
           disabled={isDisabled}
-          className={` bg-blue-600 text-white py-3 px-6 rounded-xl text-sm disabled:opacity-25 min-w-[12rem] ${
+          className={`bg-blue-600 text-white py-3 px-6 rounded-xl text-sm disabled:opacity-25 min-w-[12rem] ${
             !user && 'bg-[#ECEEF0] text-[#7E868C] cursor-default'
           }`}
           type="submit"

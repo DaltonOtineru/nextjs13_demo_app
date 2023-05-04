@@ -3,11 +3,16 @@
 import { GrClose } from 'react-icons/gr';
 
 type ToggleProps = {
-  deletePost: () => void;
+  deleteFunction: () => void;
   setToggle: (toggle: boolean) => void;
+  text: string;
 };
 
-export default function Toggle({ deletePost, setToggle }: ToggleProps) {
+export default function Toggle({
+  deleteFunction,
+  setToggle,
+  text,
+}: ToggleProps) {
   return (
     <div
       className="fixed bg-black/50 w-full h-full z-20 left-0 top-0 transition-all ease duration-500"
@@ -21,14 +26,14 @@ export default function Toggle({ deletePost, setToggle }: ToggleProps) {
           className="ml-auto text-lg cursor-pointer"
           onClick={() => setToggle(false)}
         />
-        <p>Are you sure you want to delete this post?</p>
+        <p>{`Are you sure you want to delete this ${text}?`}</p>
         <div className="flex justify-end gap-x-2">
           <button className="bg-[#cee4fe] text-blue-600 py-3 px-4 rounded-xl text-sm">
             Cancel
           </button>
           <button
             className="bg-red-600 text-sm text-white py-3 px-4 rounded-xl"
-            onClick={deletePost}
+            onClick={deleteFunction}
           >
             Delete
           </button>
