@@ -15,20 +15,21 @@ export default function Toggle({
 }: ToggleProps) {
   return (
     <div
-      className="fixed bg-black/50 w-full h-full z-20 left-0 top-0 transition-all ease duration-500"
+      className="fixed bg-black/70 w-full h-full z-20 left-0 top-0 transition-all ease duration-4000"
       onClick={() => setToggle(false)}
     >
       <div
-        className="position absolute bg-white top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 py-4 px-6 rounded-xl flex flex-col gap-6 justify-center transition-all ease duration-500"
+        className="position absolute bg-[#16181A] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 py-4 px-6 rounded-xl flex flex-col gap-6 justify-center transition-all ease duration-500"
         onClick={(e) => e.stopPropagation()}
       >
         <GrClose
-          className="ml-auto text-lg cursor-pointer"
+          className="ml-auto text-lg cursor-pointer close__icon"
           onClick={() => setToggle(false)}
+          style={{ stroke: 'white' }}
         />
-        <p>{`Are you sure you want to delete this ${text}?`}</p>
+        <p className="text-[#ecedee]">{`Are you sure you want to delete this ${text}?`}</p>
         <div className="flex justify-end gap-x-2">
-          <button className="bg-[#cee4fe] text-blue-600 py-3 px-4 rounded-xl text-sm">
+          <button className="bg-blue-600 text-white py-3 px-4 rounded-xl text-sm">
             Cancel
           </button>
           <button

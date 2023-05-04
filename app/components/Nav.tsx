@@ -16,7 +16,9 @@ export default async function Nav() {
       <div className="flex justify-between items-center py-4 w-full max-w-[1300px] mx-auto px-6 ">
         <Link href={'/'} className="flex items-center gap-x-2">
           {icon}
-          <h1 className="text-xl hidden md:inline">Next.js 13 Demo App</h1>
+          <h1 className="text-xl text-[#ecedee] hidden md:inline">
+            Next.js 13 Demo App
+          </h1>
         </Link>
         <NavLinks />
         <ul className="items-center flex gap-6">

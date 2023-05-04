@@ -36,6 +36,10 @@
   margin: auto;
 }
 
+.close__icon > path {
+  stroke: rgba(255, 255, 255, 0.7);
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);

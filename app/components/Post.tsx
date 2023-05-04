@@ -120,29 +120,31 @@ export default function Post({
   };
 
   return (
-    <div className="border-[1px] border-gray-300 my-8 p-4 rounded-xl">
+    <div className="bg-[#16181A] border-[1px] border-white border-opacity-20 my-8 p-4 rounded-xl">
       <div className="flex items-center gap-4">
-        <Image
-          className="rounded-full"
-          width={36}
-          height={36}
-          src={avatar}
-          alt="User Avatar"
-        />
+        <div className="rounded-full w-[42px] h-[42px] flex items-center justify-center  from-[#102C4C] via-[#AD007C] to-[#571D91] ">
+          <Image
+            className="rounded-full"
+            width={36}
+            height={36}
+            src={avatar}
+            alt="User Avatar"
+          />
+        </div>
         <div>
-          <h3 className="font-semibold text-[#11181c]">{name}</h3>
-          <p className="text-[#687076] font-light">{formatDate(createdAt)} </p>
+          <h3 className="font-semibold text-[#ecedee]">{name}</h3>
+          <p className="text-[#9BA1A6] font-light">{formatDate(createdAt)} </p>
         </div>
       </div>
       <div className="my-8">
-        <p className=" text-gray-900">{postTitle}</p>
+        <p className=" text-[#ecedee]">{postTitle}</p>
       </div>
       <div className="flex gap-4 cursor-pointer items-center">
         <Link
           href={`/posts/${id}`}
           onClick={() => queryClient.invalidateQueries(['detail-post'])}
         >
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-[#9BA1A6]">
             {comments?.length} {comments?.length === 1 ? 'Comment' : 'Comments'}
           </p>
         </Link>
@@ -157,7 +159,7 @@ export default function Post({
             className={`${
               likes?.length !== 0 && alreadyLiked
                 ? 'text-[#F31260]'
-                : 'text-gray-500'
+                : 'text-[#9BA1A6]'
             }`}
           >
             {likes ? likes.length : '0'}

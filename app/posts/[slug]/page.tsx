@@ -9,7 +9,6 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Link from 'next/link';
 import { BsArrowLeft } from 'react-icons/bs';
-import { useSelectedLayoutSegment } from 'next/navigation';
 
 type URL = {
   params: {

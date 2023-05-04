@@ -6,13 +6,13 @@ export default async function CardGrid() {
       {cardDetails.map((card) => (
         <article
           key={card.title}
-          className="p-4 flex flex-col justify-between space-y-8 shadow-[0_5px_10px_8px_rgba(0,0,0,0.1)] rounded-xl"
+          className="p-4 flex flex-col justify-between space-y-8 shadow-[0_5px_10px_8px_rgba(0,0,0,0.1)] rounded-xl bg-[#16181A]"
         >
           <div className="flex space-x-4 items-center">
             {card.svg}
-            <h1>{card.title}</h1>
+            <h1 className="text-[#ecedee]">{card.title}</h1>
           </div>
-          <p>{card.description}</p>
+          <p className="text-[#ecedee]">{card.description}</p>
           <a
             href={card.url}
             target="_blank"

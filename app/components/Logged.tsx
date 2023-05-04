@@ -21,7 +21,10 @@ export default function Logged({ image }: User) {
           className="rounded-full shadow-lg"
         />
       </Link>
-      <button onClick={() => signOut()} className="text-lg rounded-lg">
+      <button
+        onClick={() => signOut()}
+        className="text-lg rounded-lg text-[#ecedee]"
+      >
         Sign Out
       </button>
     </li>

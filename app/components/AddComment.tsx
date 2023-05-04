@@ -66,8 +66,8 @@ export default function AddComment({ id }: PostProps) {
           role="textbox"
           placeholder={`Comment here...`}
           contentEditable
-          className={`px-3 py-2 h-full text-lg rounded-xl my-2 focus:outline-none border-2 border-gray-300 resize-none transition-all duration-300 ease  ${
-            (outline || focus) && '!border-black'
+          className={`text-[#ecedee] bg-transparent px-3 py-2 h-full text-lg rounded-xl my-2 focus:outline-none border-2 border-gray-300 resize-none transition-all duration-300 ease border-[#ecedee]/30 placeholder:text-[#ecedee]/40 caret-[#ecedee]  ${
+            (outline || focus) && '!border-white'
           } `}
         />
       </div>
@@ -82,7 +82,7 @@ export default function AddComment({ id }: PostProps) {
         <p
           className={`${
             title.length > 300 && '!text-red-700'
-          } font-normal text-sm text-gray-700`}
+          }  text-sm text-[#ecedee]`}
         >
           {title.length}/300
         </p>

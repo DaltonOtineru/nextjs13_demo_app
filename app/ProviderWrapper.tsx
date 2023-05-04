@@ -9,7 +9,7 @@ interface Props {
   children: ReactNode;
 }
 
-const QueryWrapper = ({ children }: Props) => {
+const ProviderWrapper = ({ children }: Props) => {
   const queryClient = new QueryClient();
   return (
     <SessionProvider>
@@ -21,4 +21,4 @@ const QueryWrapper = ({ children }: Props) => {
   );
 };
 
-export default QueryWrapper;
+export default ProviderWrapper;

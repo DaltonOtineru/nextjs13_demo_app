@@ -15,7 +15,7 @@ export default async function Home() {
       <h1 className="text-5xl font-bold tracking-tight mb-[10px] text-transparent bg-clip-text bg-gradient-to-tr from-[#0072F5] from-[-20%] to-[#FF4ECD] to-70% w-fit">
         {session?.user ? `Welcome, ${session.user.name}!` : 'Welcome!'}
       </h1>
-      <h3 className="text-3xl tracking-tight mb-3">
+      <h3 className="text-3xl tracking-tight mb-3 text-[#ecedee]">
         This is an app built to showcase the capabilities of Next.js 13.
       </h3>
       <a href="https://github.com/daltonotineru/poster" target="_blank">
@@ -31,8 +31,8 @@ export default async function Home() {
           width={40}
           className="w-12 h-12 rounded-full"
         />
-        <div className="flex-col gap-y-1 leading-none">
-          <p>Dalton Otineru</p>
+        <div className="flex-col gap-y-1 leading-tight">
+          <p className="text-[#ecedee]">Dalton Otineru</p>
           <a
             href="https://github.com/daltonotineru"
             target="_blank"

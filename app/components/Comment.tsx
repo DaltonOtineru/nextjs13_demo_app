@@ -54,7 +54,7 @@ export default function Comment({ comment }: Props) {
 
   return (
     <>
-      <div className="border-[1px] border-gray-300 my-8 p-4 rounded-xl">
+      <div className="bg-[#16181A] border-[1px] border-white border-opacity-20 my-8 p-4 rounded-xl">
         <div className="flex items-center gap-4">
           <Image
             className="rounded-full"
@@ -64,16 +64,16 @@ export default function Comment({ comment }: Props) {
             alt="User Avatar"
           />
           <div>
-            <h3 className="font-semibold text-[#11181c]">
+            <h3 className="font-semibold text-[#ecedee]">
               {comment?.user?.name}
             </h3>
-            <p className="text-[#687076] font-light">
+            <p className="text-[#9BA1A6] font-light">
               {formatDate(comment?.createdAt)}
             </p>
           </div>
         </div>
         <div className="my-8">
-          <p className="break-all text-gray-900">{comment?.message}</p>
+          <p className="break-all text-[#ecedee]">{comment?.message}</p>
         </div>
         {user && user?.email === comment?.user?.email && (
           <DeleteIcon onClick={() => setToggle(true)} />

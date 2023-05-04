@@ -60,8 +60,8 @@ export default function AddPost() {
           onMouseEnter={() => setOutline(true)}
           onMouseLeave={() => setOutline(false)}
           placeholder="What's on your mind?"
-          className={`p-4 text-lg rounded-xl mt-2 border-2 border-gray-300 focus:outline-none resize-none focus:border-black transition-all duration-300 ease ${
-            outline && '!border-black'
+          className={`text-[#ecedee] bg-black p-4 text-lg rounded-xl mt-2 border-2 border-[#ecedee]/30 placeholder:text-[#ecedee]/40 caret-[#ecedee] focus:outline-none resize-none focus:border-white transition-all duration-300 ease ${
+            outline && '!border-white'
           }`}
         />
       </div>
@@ -78,7 +78,7 @@ export default function AddPost() {
         <p
           className={`${
             title.length > 300 && '!text-red-700'
-          } font-bold text-sm text-gray-700`}
+          }  text-sm text-[#ecedee]`}
         >
           {title.length}/300
         </p>
