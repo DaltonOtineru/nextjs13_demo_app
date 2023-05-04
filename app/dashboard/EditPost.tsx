@@ -76,7 +76,7 @@ export default function EditPost({
           </button>
         </div>
       </div>
-      {toggle && <Toggle deletePost={deletePost} setToggle={setToggle} />}
+      {/* {toggle && <Toggle deletePost={deletePost} setToggle={setToggle} />} */}
     </>
   );
 }
