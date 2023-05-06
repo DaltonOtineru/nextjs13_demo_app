@@ -19,7 +19,7 @@ export default function Toggle({
       onClick={() => setToggle(false)}
     >
       <div
-        className="position absolute bg-[#16181A] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 py-4 px-6 rounded-xl flex flex-col gap-6 justify-center transition-all ease duration-500"
+        className="position absolute bg-[#16181A] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 py-4 px-6 rounded-xl flex flex-col gap-6 justify-center transition-all ease duration-500 w-10/12 max-w-md"
         onClick={(e) => e.stopPropagation()}
       >
         <GrClose
@@ -27,7 +27,7 @@ export default function Toggle({
           onClick={() => setToggle(false)}
           style={{ stroke: 'white' }}
         />
-        <p className="text-[#ecedee]">{`Are you sure you want to delete this ${text}?`}</p>
+        <p className="text-[#ecedee] mx-auto">{`Are you sure you want to delete this ${text}?`}</p>
         <div className="flex justify-end gap-x-2">
           <button className="bg-blue-600 text-white py-3 px-4 rounded-xl text-sm">
             Cancel

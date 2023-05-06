@@ -6,7 +6,7 @@ import { useRecoilState } from 'recoil';
 const HamburgerIcon = () => {
   const [mobileMenu, setMobileMenu] = useRecoilState<boolean>(mobileMenuState);
 
-  const hamburgerLine = `h-1 w-8 my-1 rounded-full bg-[#ecedee] transition ease transform duration-300`;
+  const hamburgerLine = `h-1 w-8 my-1 rounded-full bg-[#ecedee] transition ease transform duration-500`;
 
   return (
     <button
@@ -15,13 +15,13 @@ const HamburgerIcon = () => {
     >
       <div
         className={`${hamburgerLine} ${
-          mobileMenu ? 'rotate-45 translate-y-3 ' : ''
+          mobileMenu && 'rotate-45 translate-y-3 '
         }`}
       />
       <div className={`${hamburgerLine} ${mobileMenu ? 'opacity-0' : ''}`} />
       <div
         className={`${hamburgerLine} ${
-          mobileMenu ? '-rotate-45 -translate-y-3 ' : ''
+          mobileMenu && '-rotate-45 -translate-y-3 '
         }`}
       />
     </button>

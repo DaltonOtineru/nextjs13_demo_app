@@ -11,7 +11,7 @@ type User = {
 export default function Logged({ image }: User) {
   return (
     <li className="flex gap-4 items-center">
-      <Link href={'/dashboard'}>
+      <Link href={'/'}>
         <Image
           width={40}
           height={40}

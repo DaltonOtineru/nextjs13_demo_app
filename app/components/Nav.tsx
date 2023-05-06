@@ -17,8 +17,8 @@ export default async function Nav() {
   const icon = cardDetails[0].svg;
 
   return (
-    <div className="relative">
-      <nav className="w-full shadow-lg z-30 sticky top-0 bg-black/30 backdrop-blur-[10px]">
+    <header className="sticky top-0 overscroll-none">
+      <nav className="w-full shadow-lg z-30 sticky top-8 left-0 right-0 bg-black/30 backdrop-blur-[10px]">
         <div className="flex justify-between items-center py-4 w-full max-w-[1300px] mx-auto px-6 ">
           <div className="flex">
             <HamburgerIcon />
@@ -45,8 +45,8 @@ export default async function Nav() {
           </ul>
         </div>
       </nav>
-      {/* <MobileBackdrop /> */}
+      <MobileBackdrop />
       <MobileNav />
-    </div>
+    </header>
   );
 }
