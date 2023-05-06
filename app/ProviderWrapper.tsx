@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactNode } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { SessionProvider } from 'next-auth/react';
+import { RecoilRoot } from 'recoil';
 
 interface Props {
   children: ReactNode;
@@ -14,8 +15,10 @@ const ProviderWrapper = ({ children }: Props) => {
   return (
     <SessionProvider>
       <QueryClientProvider client={queryClient}>
-        <Toaster />
-        {children}
+        <RecoilRoot>
+          <Toaster />
+          {children}
+        </RecoilRoot>
       </QueryClientProvider>
     </SessionProvider>
   );

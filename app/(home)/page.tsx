@@ -42,7 +42,9 @@ export default async function Home() {
           </a>
         </div>
       </div>
-      <h3 className="text-[40px] font-semibold my-6">Features</h3>
+      <h3 className="text-[40px] text-[#ecedee] font-semibold my-6">
+        Features
+      </h3>
       {/* @ts-expect-error Server Component */}
       <CardGrid />
     </main>

@@ -3,8 +3,13 @@ import Login from './Login';
 import Logged from './Logged';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../../pages/api/auth/[...nextauth]';
-import NavLinks from './NavLinks';
+
 import { cardDetails } from '../(home)/CardDetails';
+import NavLink from './NavLink';
+import { useSession } from 'next-auth/react';
+import HamburgerIcon from './Icons/Hambuger';
+import MobileNav from './MobileNav';
+import MobileBackdrop from './MobileBackdrop';
 
 export default async function Nav() {
   const session = await getServerSession(authOptions);
@@ -12,20 +17,36 @@ export default async function Nav() {
   const icon = cardDetails[0].svg;
 
   return (
-    <nav className="w-full shadow-lg">
-      <div className="flex justify-between items-center py-4 w-full max-w-[1300px] mx-auto px-6 ">
-        <Link href={'/'} className="flex items-center gap-x-2">
-          {icon}
-          <h1 className="text-xl text-[#ecedee] hidden md:inline">
-            Next.js 13 Demo App
-          </h1>
-        </Link>
-        <NavLinks />
-        <ul className="items-center flex gap-6">
-          {!session?.user && <Login />}
-          {session?.user && <Logged image={session.user.image || ''} />}
-        </ul>
-      </div>
-    </nav>
+    <div className="relative">
+      <nav className="w-full shadow-lg z-30 sticky top-0 bg-black/30 backdrop-blur-[10px]">
+        <div className="flex justify-between items-center py-4 w-full max-w-[1300px] mx-auto px-6 ">
+          <div className="flex">
+            <HamburgerIcon />
+            <Link href={'/'} className="flex items-center gap-x-2">
+              {icon}
+              <h1 className="text-xl text-[#ecedee] hidden md:inline">
+                Next.js 13 Demo App
+              </h1>
+            </Link>
+          </div>
+
+          <ul className="space-x-4 hidden md:flex">
+            <NavLink path="/" linkSegment="(home)" text="Home" />
+            <NavLink path="/posts" linkSegment="posts" text="Feed" />
+            <NavLink
+              path="/subscribe"
+              linkSegment="subscribe"
+              text="Subscribe"
+            />
+          </ul>
+          <ul className="items-center flex gap-6">
+            {!session?.user && <Login />}
+            {session?.user && <Logged image={session?.user.image || ''} />}
+          </ul>
+        </div>
+      </nav>
+      {/* <MobileBackdrop /> */}
+      <MobileNav />
+    </div>
   );
 }
