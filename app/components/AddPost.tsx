@@ -5,6 +5,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 import { toast } from 'react-hot-toast';
 import { useSession } from 'next-auth/react';
+import Dots from './Icons/Dots';
 
 export default function AddPost() {
   const { data: session } = useSession();
@@ -68,12 +69,12 @@ export default function AddPost() {
       <div className="space-y-2 flex items-center justify-between -mt-2">
         <button
           disabled={isDisabled}
-          className={`bg-blue-600 text-white py-3 px-6 rounded-xl text-sm disabled:opacity-25 min-w-[12rem] ${
+          className={`bg-blue-600 text-white py-3 px-6 rounded-xl text-sm disabled:bg-opacity-50 min-w-[12rem] h-[46px] ${
             !user && 'bg-[#ECEEF0] text-[#7E868C] cursor-default'
           }`}
           type="submit"
         >
-          {isDisabled ? <div className="post__loader" /> : 'Post'}
+          {isDisabled ? <Dots /> : 'Post'}
         </button>
         <p
           className={`${

@@ -10,7 +10,8 @@ export default function MobileBackdrop() {
     <div
       className={`${
         !mobileMenu && 'hidden'
-      }  h-screen fixed top-0 bottom-0 left-0 right-0 bg-black/30 backdrop-blur-md`}
+      }  md:hidden h-screen fixed top-0 bottom-0 left-0 right-0 bg-black/30 backdrop-blur-sm`}
+      onClick={() => setmobileMenu(false)}
     />
   );
 }

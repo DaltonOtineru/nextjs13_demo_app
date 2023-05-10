@@ -5,6 +5,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 import toast from 'react-hot-toast';
 import { useSession } from 'next-auth/react';
+import Dots from './Icons/Dots';
 
 type PostProps = {
   id?: string;
@@ -66,7 +67,7 @@ export default function AddComment({ id }: PostProps) {
           role="textbox"
           placeholder={`Comment here...`}
           contentEditable
-          className={`text-[#ecedee] bg-transparent px-3 py-2 h-full text-lg rounded-xl my-2 focus:outline-none border-2 border-gray-300 resize-none transition-all duration-300 ease border-[#ecedee]/30 placeholder:text-[#ecedee]/40 caret-[#ecedee]  ${
+          className={`text-[#ecedee] bg-black px-3 py-2 h-full text-lg rounded-xl my-2 focus:outline-none border-2 border-[#ecedee]/30 resize-none transition-all duration-300 ease  placeholder:text-[#ecedee]/40 caret-[#ecedee]  ${
             (outline || focus) && '!border-white'
           } `}
         />
@@ -74,10 +75,10 @@ export default function AddComment({ id }: PostProps) {
       <div className="gap-2 flex items-center justify-between">
         <button
           disabled={isDisabled}
-          className={`text-md bg-blue-600 text-white py-3 px-6 rounded-xl disabled:opacity-25 min-w-[12rem] text-sm`}
+          className={`text-md bg-blue-600 text-white py-3 px-6 rounded-xl disabled:bg-opacity-50 min-w-[12rem] text-sm min-h-[46px]`}
           type="submit"
         >
-          {isDisabled ? <div className="post__loader" /> : 'Comment'}
+          {isDisabled ? <Dots /> : 'Comment'}
         </button>
         <p
           className={`${

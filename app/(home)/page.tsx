@@ -12,7 +12,7 @@ export default async function Home() {
 
   return (
     <main className="max-w-[1300px] mx-auto py-6 px-6">
-      <h1 className="text-[46px] sm:text-5xl font-bold tracking-tight mb-[10px] text-transparent bg-clip-text bg-gradient-to-tr from-[#0072F5] from-[-20%] to-[#FF4ECD] to-70% w-fit leading-tight">
+      <h1 className="text-[46px] sm:text-5xl font-bold tracking-tight mb-[10px] text-transparent bg-clip-text bg-gradient-to-tr from-[#0072F5] from-[-20%] to-[#FF4ECD] to-70% w-fit leading-none">
         {session?.user ? `Welcome, ${session.user.name}!` : 'Welcome!'}
       </h1>
       <h3 className="text-3xl tracking-tight mb-3 text-[#ecedee]">

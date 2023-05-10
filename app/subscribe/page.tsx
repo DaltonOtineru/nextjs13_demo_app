@@ -6,11 +6,11 @@ export const metadata = {
 
 export default async function Subscribe() {
   return (
-    <main className="max-w-[1300px] mx-auto py-6 px-6">
+    <main className="max-w-[1300px] mx-auto py-6 px-6 ">
       <h1 className="font-bold text-transparent text-6xl bg-clip-text bg-gradient-to-tr from-[#F31260] from-20% to-[#F5A524] to-70% w-fit mt-2 mb-6">
         Subscribe
       </h1>
-      <div className="w-full h-[400px] shadow-xl relative rounded-2xl">
+      <div className="w-full h-[400px] shadow-xl relative rounded-2xl -z-10">
         <Image
           src="https://images.pexels.com/photos/3975590/pexels-photo-3975590.jpeg"
           className="w-full h-[400px] object-cover rounded-2xl"

@@ -15,7 +15,7 @@ export default function MobileNav() {
       {mobileMenu && (
         <nav
           className={`${
-            mobileMenu ? 'flex' : 'hidden'
+            mobileMenu ? 'flex md:hidden' : 'hidden'
           } absolute -bottom-26 right-0 left-0 z-50 flex-col px-6 bg-black  py-4`}
         >
           <ul className="space-y-4 flex flex-col">

@@ -52,6 +52,7 @@ export default function Post({
 
   const [loading, setLoading] = useState<boolean>(false);
   const [toggle, setToggle] = useState<boolean>(false);
+  const [deleting, setDeleting] = useState<boolean>(false);
 
   const queryClient = useQueryClient();
   const segment = useSelectedLayoutSegment();
@@ -89,6 +90,7 @@ export default function Post({
 
   const { mutate: handleDelete } = useMutation(
     async (id: string) => await axios.post('/api/posts/deletePost', { id }),
+
     {
       onError: (error) => {
         if (error instanceof AxiosError) {
@@ -96,6 +98,7 @@ export default function Post({
         }
       },
       onSuccess: ({ data }) => {
+        // setDeleting(true);
         if (segment !== 'posts') {
           router.push('/posts');
         }
@@ -116,7 +119,9 @@ export default function Post({
 
   // run delete post mutation
   const deletePost = async () => {
+    setDeleting(true);
     handleDelete(id);
+    // console.log('DELETING***', deleting);
   };
 
   return (
@@ -170,7 +175,12 @@ export default function Post({
         )}
       </div>
       {toggle && (
-        <Toggle deleteFunction={deletePost} setToggle={setToggle} text="post" />
+        <Toggle
+          deleteFunction={deletePost}
+          setToggle={setToggle}
+          deleting={deleting}
+          text="post"
+        />
       )}
     </div>
   );

@@ -5,7 +5,7 @@
 *::-webkit-scrollbar {
   display: none;
 }
-.loader {
+.page__loader {
   border: 16px solid #f3f3f3;
   border-top: 16px solid #2563eb;
   border-radius: 50%;
@@ -34,6 +34,26 @@
   height: 18px;
   animation: spin 800ms linear infinite;
   margin: auto;
+}
+.delete__dots {
+  fill: #fff;
+  stroke: #fff;
+}
+.spinner_S1WN {
+  animation: spinner_MGfb 0.8s linear infinite;
+  animation-delay: -0.8s;
+}
+.spinner_Km9P {
+  animation-delay: -0.65s;
+}
+.spinner_JApP {
+  animation-delay: -0.5s;
+}
+@keyframes spinner_MGfb {
+  93.75%,
+  100% {
+    opacity: 0.2;
+  }
 }
 
 .close__icon > path {
