@@ -31,6 +31,7 @@ export default function Comment({ comment }: Props) {
   const queryClient = useQueryClient();
 
   const [toggle, setToggle] = useState<boolean>(false);
+  const [deleting, setDeleting] = useState<boolean>(false);
 
   const commentId: string = comment?.id;
 
@@ -49,6 +50,7 @@ export default function Comment({ comment }: Props) {
   );
 
   const deleteComment = async () => {
+    setDeleting(true);
     handleDelete(comment.postId);
   };
 
@@ -83,6 +85,7 @@ export default function Comment({ comment }: Props) {
         <Toggle
           deleteFunction={deleteComment}
           setToggle={setToggle}
+          deleting={deleting}
           text="comment"
         />
       )}

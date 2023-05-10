@@ -121,7 +121,6 @@ export default function Post({
   const deletePost = async () => {
     setDeleting(true);
     handleDelete(id);
-    // console.log('DELETING***', deleting);
   };
 
   return (
