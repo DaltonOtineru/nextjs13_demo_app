@@ -6,7 +6,7 @@ export const metadata = {
 
 export default async function Subscribe() {
   return (
-    <main className="max-w-[1300px] mx-auto py-6 px-6 ">
+    <main className="max-w-[1300px] mx-auto py-6 px-6">
       <h1 className="font-bold text-transparent text-6xl bg-clip-text bg-gradient-to-tr from-[#F31260] from-20% to-[#F5A524] to-70% w-fit mt-2 mb-6">
         Subscribe
       </h1>

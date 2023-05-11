@@ -17,6 +17,8 @@ export default function AddComment({ id }: PostProps) {
 
   const [title, setTitle] = useState<string>('');
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>('');
   const [outline, setOutline] = useState<boolean>(false);
   const [focus, setFocus] = useState<boolean>(false);
 
@@ -29,15 +31,16 @@ export default function AddComment({ id }: PostProps) {
       onError: (error) => {
         if (error instanceof AxiosError) {
           console.log('ERROR COMMENT', error);
-
+          setIsDisabled(false);
+          setIsError(true);
+          setErrorMessage(error?.response?.data.message);
           setTimeout(() => {
-            setIsDisabled(false);
+            setIsError(false);
           }, 3000);
         }
       },
       onSuccess: ({ data }) => {
         setTitle('');
-
         queryClient.invalidateQueries(['comments']);
         queryClient.invalidateQueries(['detail-post']);
         setTimeout(() => {
@@ -60,7 +63,10 @@ export default function AddComment({ id }: PostProps) {
           onChange={(e) => setTitle(e.target.value)}
           onMouseEnter={() => setOutline(true)}
           onMouseLeave={() => setOutline(false)}
-          onFocus={() => setFocus(true)}
+          onFocus={() => {
+            setFocus(true);
+            setIsError(false);
+          }}
           onBlur={() => setFocus(false)}
           value={title}
           name="title"
@@ -72,7 +78,7 @@ export default function AddComment({ id }: PostProps) {
           } `}
         />
       </div>
-      <div className="gap-2 flex items-center justify-between">
+      <div className="gap-2 flex items-center justify-between relative">
         <button
           disabled={isDisabled}
           className={`text-md bg-blue-600 text-white py-3 px-6 rounded-xl disabled:bg-opacity-50 min-w-[12rem] text-sm min-h-[46px]`}
@@ -87,6 +93,11 @@ export default function AddComment({ id }: PostProps) {
         >
           {title.length}/300
         </p>
+        {isError && (
+          <div className="absolute -bottom-3 left-[35%] rounded-xl bg-[#16181A] text-[#ecedee] p-6">
+            <span> {errorMessage} </span>
+          </div>
+        )}
       </div>
     </form>
   );

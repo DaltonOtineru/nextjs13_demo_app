@@ -18,6 +18,7 @@ const ProviderWrapper = ({ children }: Props) => {
       },
     },
   });
+
   return (
     <SessionProvider>
       <QueryClientProvider client={queryClient}>

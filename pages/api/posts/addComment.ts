@@ -10,9 +10,7 @@ export default async function handler(
   if (req.method === 'POST') {
     const session = await getServerSession(req, res, authOptions);
     if (!session) {
-      return res
-        .status(401)
-        .json({ message: 'You must be signed in to comment!' });
+      return res.status(401).json({ message: 'Please sign in to comment!' });
     }
 
     // get user
@@ -33,12 +31,12 @@ export default async function handler(
     // check title
     if (title.length > 300) {
       return res.status(403).json({
-        message: 'Please write a shorter post!',
+        message: 'Please write a shorter comment!',
       });
     }
     if (!title.length) {
       return res.status(403).json({
-        message: 'Post cannot be empty!',
+        message: 'Comment cannot be empty!',
       });
     }
 
