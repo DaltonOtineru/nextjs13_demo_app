@@ -1,5 +1,4 @@
 export default function Dots() {
-  console.log('DOTS***');
   return (
     <svg
       width="24"

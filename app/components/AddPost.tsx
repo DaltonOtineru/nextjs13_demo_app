@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
-import { toast } from 'react-hot-toast';
+
 import { useSession } from 'next-auth/react';
 import Dots from './Icons/Dots';
 
@@ -16,14 +16,12 @@ export default function AddPost() {
   const [outline, setOutline] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const queryClient = useQueryClient();
-  let toastPostID: string = 'hello';
 
   const { mutate, isLoading } = useMutation(
     async (title: string) => await axios.post('/api/posts/addPost', { title }),
     {
       onError: (error) => {
         if (error instanceof AxiosError) {
-          toast.error(error?.response?.data.message, { id: toastPostID });
           setTimeout(() => {
             setIsDisabled(false);
           }, 3000);
@@ -31,7 +29,6 @@ export default function AddPost() {
       },
       onSuccess: (data) => {
         setTitle('');
-        toast.success(data?.data?.message, { id: toastPostID });
         queryClient.invalidateQueries(['posts']);
         setTimeout(() => {
           setIsDisabled(false);
@@ -43,7 +40,6 @@ export default function AddPost() {
   const submitPost = async (e: React.FormEvent) => {
     setLoading(true);
     e.preventDefault();
-    toastPostID = toast.loading('Creating your post', { id: toastPostID });
     setIsDisabled(true);
     mutate(title);
   };

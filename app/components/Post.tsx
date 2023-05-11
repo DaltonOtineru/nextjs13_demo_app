@@ -7,7 +7,6 @@ import { formatDate } from '@/lib/utils';
 import { HeartIcon } from './Icons/Heart';
 import axios, { AxiosError } from 'axios';
 import { useSession } from 'next-auth/react';
-import { toast } from 'react-hot-toast';
 import { useState } from 'react';
 import { DeleteIcon } from './Icons/Delete';
 import Toggle from '../dashboard/Toggle';
@@ -74,7 +73,6 @@ export default function Post({
           setTimeout(() => {
             setLoading(false);
           }, 1000);
-          toast.error(error?.response?.data.message);
         }
       },
       onSuccess: ({ data }) => {
@@ -83,14 +81,12 @@ export default function Post({
         setTimeout(() => {
           setLoading(false);
         }, 1000);
-        toast.success(data.message);
       },
     }
   );
 
   const { mutate: handleDelete } = useMutation(
     async (id: string) => await axios.post('/api/posts/deletePost', { id }),
-
     {
       onError: (error) => {
         if (error instanceof AxiosError) {
@@ -98,13 +94,11 @@ export default function Post({
         }
       },
       onSuccess: ({ data }) => {
-        // setDeleting(true);
         if (segment !== 'posts') {
           router.push('/posts');
         }
         queryClient.invalidateQueries(['posts']);
         queryClient.invalidateQueries(['detail-post']);
-        toast.success(data.message);
       },
     }
   );

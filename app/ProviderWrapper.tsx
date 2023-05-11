@@ -11,7 +11,13 @@ interface Props {
 }
 
 const ProviderWrapper = ({ children }: Props) => {
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+      },
+    },
+  });
   return (
     <SessionProvider>
       <QueryClientProvider client={queryClient}>

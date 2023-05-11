@@ -1,11 +1,8 @@
 'use client';
-import { formatDate } from '@/lib/utils';
-import { useMutation, useQuery } from '@tanstack/react-query';
+
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { useSession } from 'next-auth/react';
-import Image from 'next/image';
 import { PostType } from '../types/Post';
-import { DeleteIcon } from './Icons/Delete';
 import Comment from './Comment';
 
 type Props = {
@@ -18,16 +15,18 @@ export default function Comments(postId: Props) {
     return response.data;
   };
 
-  const { data } = useQuery<PostType>({
+  const { data, isLoading, isRefetching } = useQuery<PostType>({
     queryFn: fetchComments,
     queryKey: ['comments'],
+    cacheTime: 0,
   });
 
   return (
     <>
-      {data?.comments?.map((comment) => (
-        <Comment comment={comment} key={comment?.id} />
-      ))}
+      {!isLoading &&
+        data?.comments?.map((comment) => (
+          <Comment comment={comment} key={comment?.id} />
+        ))}
     </>
   );
 }

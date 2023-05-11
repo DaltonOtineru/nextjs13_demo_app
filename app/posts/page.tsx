@@ -11,13 +11,7 @@ const allPosts = async () => {
   return response.data;
 };
 
-type URL = {
-  params: {
-    slug: string;
-  };
-};
-
-export default function Home(url: URL) {
+export default function Home() {
   const { data, error, isLoading } = useQuery<PostsType[]>({
     queryFn: allPosts,
     queryKey: ['posts'],

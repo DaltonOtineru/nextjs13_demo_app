@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
-import toast from 'react-hot-toast';
+
 import { useSession } from 'next-auth/react';
 import Dots from './Icons/Dots';
 
@@ -29,7 +29,7 @@ export default function AddComment({ id }: PostProps) {
       onError: (error) => {
         if (error instanceof AxiosError) {
           console.log('ERROR COMMENT', error);
-          toast.error('There was an error with your comment!');
+
           setTimeout(() => {
             setIsDisabled(false);
           }, 3000);
@@ -37,7 +37,7 @@ export default function AddComment({ id }: PostProps) {
       },
       onSuccess: ({ data }) => {
         setTitle('');
-        toast.success(data.message);
+
         queryClient.invalidateQueries(['comments']);
         queryClient.invalidateQueries(['detail-post']);
         setTimeout(() => {

@@ -44,7 +44,6 @@ export default function Comment({ comment }: Props) {
       },
       onSuccess: ({ data }) => {
         queryClient.invalidateQueries(['comments']);
-        console.log(data);
       },
     }
   );
