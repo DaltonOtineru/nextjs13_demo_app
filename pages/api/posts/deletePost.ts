@@ -10,7 +10,7 @@ export default async function handler(
   if (req.method === 'POST') {
     const session = await getServerSession(req, res, authOptions);
     if (!session) {
-      return res.status(401).json({ message: 'Please sign in!' });
+      return res.status(401).json({ message: 'Please sign in to delete post' });
     }
     // delete post
     try {
@@ -21,7 +21,7 @@ export default async function handler(
         },
       });
 
-      return res.status(200).json({ result, message: 'Post deleted!' });
+      return res.status(200).json({ result, message: 'Post deleted' });
     } catch (err) {
       res.status(403).json({ err: 'An error occurred trying to delete post' });
     }

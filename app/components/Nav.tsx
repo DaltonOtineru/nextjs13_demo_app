@@ -18,7 +18,7 @@ export default async function Nav() {
 
   return (
     <header className="sticky top-0 overscroll-none">
-      <nav className="w-full shadow-lg z-30 sticky top-8 left-0 right-0 bg-black/30 backdrop-blur-[10px]">
+      <nav className="w-full z-30 shadow-lg sticky top-8 left-0 right-0 bg-black/30 backdrop-blur-[10px]">
         <div className="flex justify-between items-center py-4 w-full max-w-[1300px] mx-auto px-6 ">
           <div className="flex">
             <HamburgerIcon />

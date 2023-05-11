@@ -21,7 +21,7 @@ export default async function handler(
 
       return res.status(200).json(data);
     } catch (err) {
-      res.status(403).json({ err: 'Error fetching posts!' });
+      res.status(403).json({ err: 'Error fetching posts' });
     }
   }
 }

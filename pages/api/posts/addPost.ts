@@ -12,7 +12,7 @@ export default async function handler(
     if (!session) {
       return res
         .status(401)
-        .json({ message: 'You must be signed in to make a post!' });
+        .json({ message: 'You must be signed in to make a post' });
     }
 
     const title: string = req.body.title;
@@ -25,19 +25,19 @@ export default async function handler(
     // check if user
     if (!prismaUser) {
       return res.status(403).json({
-        message: 'Please sign in to make a post!',
+        message: 'Please sign in to make a post',
       });
     }
 
     // check title
     if (title.length > 300) {
       return res.status(403).json({
-        message: 'Please write a shorter post!',
+        message: 'Please write a shorter post',
       });
     }
     if (!title.length) {
       return res.status(403).json({
-        message: 'Post cannot be empty!',
+        message: 'Post cannot be empty',
       });
     }
 
@@ -49,7 +49,7 @@ export default async function handler(
           userId: prismaUser.id,
         },
       });
-      res.status(200).json({ result, message: 'Post Created! ✨' });
+      res.status(200).json({ result, message: 'New Post Created' });
     } catch (err) {
       res.status(403).json({ err: 'Error has occurerd while creating post' });
     }

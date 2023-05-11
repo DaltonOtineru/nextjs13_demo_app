@@ -23,7 +23,7 @@ export default async function handler(
     // check if user
     if (!prismaUser) {
       return res.status(403).json({
-        message: 'You must be signed in to comment!',
+        message: 'You must be signed in to comment',
       });
     }
 
@@ -33,12 +33,12 @@ export default async function handler(
     // check title
     if (title.length > 300) {
       return res.status(403).json({
-        message: 'Please write a shorter comment!',
+        message: 'Please write a shorter comment',
       });
     }
     if (!title.length) {
       return res.status(403).json({
-        message: 'Comment cannot be empty!',
+        message: 'Comment cannot be empty',
       });
     }
 
@@ -52,7 +52,7 @@ export default async function handler(
         },
       });
 
-      res.status(200).json({ result, message: 'Comment posted! ✨' });
+      res.status(200).json({ result, message: 'Comment posted' });
     } catch (err) {
       res
         .status(403)

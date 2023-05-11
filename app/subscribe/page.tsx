@@ -1,16 +1,24 @@
+'use client';
+
 import Image from 'next/image';
+import { useRecoilValue } from 'recoil';
+import { mobileMenuState } from '../atoms/mobileMenuAtom';
+import { useState } from 'react';
 
-export const metadata = {
-  title: 'Subscribe | Next.js 13 Demo App',
-};
+export default function Subscribe() {
+  const [alert, setAlert] = useState<boolean>(false);
+  const mobileMenuOpen = useRecoilValue<boolean>(mobileMenuState);
 
-export default async function Subscribe() {
   return (
-    <main className="max-w-[1300px] mx-auto py-6 px-6">
+    <main
+      className={`max-w-[1300px] mx-auto py-6 px-6 ${
+        mobileMenuOpen && 'z-[-1]'
+      } relative`}
+    >
       <h1 className="font-bold text-transparent text-6xl bg-clip-text bg-gradient-to-tr from-[#F31260] from-20% to-[#F5A524] to-70% w-fit mt-2 mb-6">
         Subscribe
       </h1>
-      <div className="w-full h-[400px] shadow-xl relative rounded-2xl -z-10">
+      <div className="w-full h-[400px] shadow-xl relative rounded-2xl ">
         <Image
           src="https://images.pexels.com/photos/3975590/pexels-photo-3975590.jpeg"
           className="w-full h-[400px] object-cover rounded-2xl"
@@ -31,11 +39,21 @@ export default async function Subscribe() {
             <span>Use Card 4242 4242 4242 4242 to test</span> */}
             <span>*Pro plan subscriptions will be available soon*</span>
           </div>
-          <button className="bg-[rgb(148_249_240)] bg-opacity-[.15] text-[#90EBE1] min-w-fit rounded-full px-5 py-3 cursor-pointer text-xs font-semibold">
+          <button
+            onClick={() => setAlert(true)}
+            className="bg-[rgb(148_249_240)] bg-opacity-[.15] text-[#90EBE1] min-w-fit rounded-full px-5 py-3 cursor-pointer text-xs font-semibold flex items-center justify-center"
+          >
             SUBSCRIBE NOW
           </button>
         </div>
       </div>
+      {alert && (
+        <div className="w-full flex justify-end py-1">
+          <p className="text-[#F5A524] ml-auto">
+            Subscriptions will be available soon!
+          </p>
+        </div>
+      )}
     </main>
   );
 }

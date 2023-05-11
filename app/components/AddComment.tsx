@@ -38,9 +38,6 @@ export default function AddComment({ id }: PostProps) {
           setIsDisabled(false);
           setIsError(true);
           setErrorMessage(error?.response?.data.message);
-          setTimeout(() => {
-            setIsError(false);
-          }, 3000);
         }
       },
       onSuccess: ({ data }) => {
@@ -82,11 +79,7 @@ export default function AddComment({ id }: PostProps) {
           } `}
         />
       </div>
-      <div
-        className={`gap-2 flex items-center justify-between relative ${
-          mobileMenuOpen && '-z-10'
-        }`}
-      >
+      <div className={`gap-2 flex items-center justify-between`}>
         <button
           disabled={isDisabled}
           className={`text-md bg-blue-600 text-white py-3 px-6 rounded-xl disabled:bg-opacity-50 min-w-[12rem] text-sm min-h-[46px]`}
@@ -101,12 +94,10 @@ export default function AddComment({ id }: PostProps) {
         >
           {title.length}/300
         </p>
-        {isError && (
-          <div className="absolute -bottom-3 md:left-[35%] rounded-xl bg-[#16181A] text-[#ecedee] sm:p-6 p-5 m-w-fit">
-            <span> {errorMessage} </span>
-          </div>
-        )}
       </div>
+      {isError && (
+        <span className="text-sm text-red-600 pt-2 pl-1">{errorMessage}</span>
+      )}
     </form>
   );
 }

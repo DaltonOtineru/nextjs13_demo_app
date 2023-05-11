@@ -18,8 +18,12 @@ export default async function Home() {
       <h3 className="text-3xl tracking-tight mb-3 text-[#ecedee]">
         This is an app built to showcase the capabilities of Next.js 13.
       </h3>
-      <a href="https://github.com/daltonotineru/poster" target="_blank">
-        <button className="rounded-xl text-sm px-3 py-2 bg-gradient-to-r from-[-63%] via-[-20%] to-[70%] from-[#06B7DB] via-[#FF4ECD] to-[#0072F5] text-white">
+      <a
+        className="github__btnWrap "
+        href="https://github.com/daltonotineru/poster"
+        target="_blank"
+      >
+        <button className="rounded-xl text-sm px-3 py-2 text-white transition-all duration-300 ease-in-out github__btn bg-opacity-90">
           Source Code on GitHub
         </button>
       </a>

@@ -5,6 +5,24 @@
 *::-webkit-scrollbar {
   display: none;
 }
+.github__btnWrap {
+  box-shadow: 0 10px 14px 8px #0952a5;
+}
+.github__btn {
+  border: solid 3px transparent;
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0)
+    ),
+    linear-gradient(140deg, #06b7db, #ff4ecd, #0072f5);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  box-shadow: 2px 1000px 1px #000 inset;
+}
+.github__btn:hover {
+  box-shadow: none;
+}
+
 .page__loader {
   border: 16px solid #f3f3f3;
   border-top: 16px solid #2563eb;

@@ -31,9 +31,6 @@ export default function AddPost() {
           setIsDisabled(false);
           setIsError(true);
           setErrorMessage(error?.response?.data.message);
-          setTimeout(() => {
-            setIsError(false);
-          }, 3000);
         }
       },
 
@@ -76,11 +73,7 @@ export default function AddPost() {
           }`}
         />
       </div>
-      <div
-        className={`space-y-2 flex items-center justify-between -mt-2 relative ${
-          mobileMenuOpen && '-z-10'
-        }`}
-      >
+      <div className={`space-y-2 flex items-center justify-between -mt-2`}>
         <button
           disabled={isDisabled}
           className={`bg-blue-600 text-white py-3 px-6 rounded-xl text-sm disabled:bg-opacity-50 min-w-[12rem] h-[46px] ${
@@ -90,6 +83,7 @@ export default function AddPost() {
         >
           {isDisabled ? <Dots /> : 'Post'}
         </button>
+
         <p
           className={`${
             title.length > 300 && '!text-red-700'
@@ -97,12 +91,10 @@ export default function AddPost() {
         >
           {title.length}/300
         </p>
-        {isError && (
-          <div className="absolute -bottom-3 md:left-[35%] rounded-xl bg-[#16181A] text-[#ecedee] sm:p-6 p-5 m-w-fit">
-            <span> {errorMessage} </span>
-          </div>
-        )}
       </div>
+      {isError && (
+        <span className="text-sm text-red-600 pt-2 pl-1">{errorMessage}</span>
+      )}
     </form>
   );
 }

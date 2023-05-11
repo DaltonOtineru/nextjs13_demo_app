@@ -18,7 +18,7 @@ export default async function handler(
   if (req.method === 'POST') {
     const session = await getServerSession(req, res, authOptions);
     if (!session) {
-      return res.status(401).json({ message: 'Please sign in to like posts!' });
+      return res.status(401).json({ message: 'Please sign in to like posts' });
     }
 
     // get user
@@ -29,7 +29,7 @@ export default async function handler(
     // check if user
     if (!prismaUser) {
       return res.status(403).json({
-        message: 'Please sign in to like posts!',
+        message: 'Please sign in to like posts',
       });
     }
 
@@ -60,7 +60,7 @@ export default async function handler(
             email,
           },
         });
-        res.status(200).json({ result, message: 'Liked Post! ✨' });
+        res.status(200).json({ result, message: 'Liked Post' });
       }
 
       if (alreadyLiked) {
@@ -70,7 +70,7 @@ export default async function handler(
             postId: postId,
           },
         });
-        res.status(200).json({ result, message: 'Your like was removed! 😱' });
+        res.status(200).json({ result, message: 'Your like was removed' });
       }
     } catch (err) {
       res.status(403).json({ err: 'Error has occurerd while liking the post' });
