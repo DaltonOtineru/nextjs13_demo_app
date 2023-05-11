@@ -10,7 +10,9 @@ export default async function handler(
   if (req.method === 'POST') {
     const session = await getServerSession(req, res, authOptions);
     if (!session) {
-      return res.status(401).json({ message: 'Please sign in to comment!' });
+      return res
+        .status(401)
+        .json({ message: 'You must be signed in to comment!' });
     }
 
     // get user
@@ -21,7 +23,7 @@ export default async function handler(
     // check if user
     if (!prismaUser) {
       return res.status(403).json({
-        message: 'Please sign in to comment!',
+        message: 'You must be signed in to comment!',
       });
     }
 

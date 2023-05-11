@@ -6,6 +6,8 @@ import axios, { AxiosError } from 'axios';
 
 import { useSession } from 'next-auth/react';
 import Dots from './Icons/Dots';
+import { useRecoilValue } from 'recoil';
+import { mobileMenuState } from '../atoms/mobileMenuAtom';
 
 type PostProps = {
   id?: string;
@@ -21,6 +23,8 @@ export default function AddComment({ id }: PostProps) {
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [outline, setOutline] = useState<boolean>(false);
   const [focus, setFocus] = useState<boolean>(false);
+
+  const mobileMenuOpen = useRecoilValue<boolean>(mobileMenuState);
 
   const queryClient = useQueryClient();
 
@@ -78,7 +82,11 @@ export default function AddComment({ id }: PostProps) {
           } `}
         />
       </div>
-      <div className="gap-2 flex items-center justify-between relative">
+      <div
+        className={`gap-2 flex items-center justify-between relative ${
+          mobileMenuOpen && '-z-10'
+        }`}
+      >
         <button
           disabled={isDisabled}
           className={`text-md bg-blue-600 text-white py-3 px-6 rounded-xl disabled:bg-opacity-50 min-w-[12rem] text-sm min-h-[46px]`}
@@ -94,7 +102,7 @@ export default function AddComment({ id }: PostProps) {
           {title.length}/300
         </p>
         {isError && (
-          <div className="absolute -bottom-3 left-[35%] rounded-xl bg-[#16181A] text-[#ecedee] p-6">
+          <div className="absolute -bottom-3 md:left-[35%] rounded-xl bg-[#16181A] text-[#ecedee] sm:p-6 p-5 m-w-fit">
             <span> {errorMessage} </span>
           </div>
         )}

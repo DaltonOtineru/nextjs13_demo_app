@@ -6,7 +6,8 @@ import axios, { AxiosError } from 'axios';
 
 import { useSession } from 'next-auth/react';
 import Dots from './Icons/Dots';
-import { error } from 'console';
+import { useRecoilValue } from 'recoil';
+import { mobileMenuState } from '../atoms/mobileMenuAtom';
 
 export default function AddPost() {
   const { data: session } = useSession();
@@ -17,10 +18,12 @@ export default function AddPost() {
   const [isError, setIsError] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [outline, setOutline] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
+
+  const mobileMenuOpen = useRecoilValue<boolean>(mobileMenuState);
+
   const queryClient = useQueryClient();
 
-  const { mutate, isLoading } = useMutation(
+  const { mutate } = useMutation(
     async (title: string) => await axios.post('/api/posts/addPost', { title }),
     {
       onError: (error) => {
@@ -45,18 +48,18 @@ export default function AddPost() {
   );
 
   const submitPost = async (e: React.FormEvent) => {
-    setLoading(true);
     e.preventDefault();
     setIsDisabled(true);
     mutate(title);
   };
 
-  console.log(isError);
-  console.log(errorMessage);
-
   return (
-    <form onSubmit={submitPost}>
-      <div className="flex flex-col my-4 rounded-md relative">
+    <form className={``} onSubmit={submitPost}>
+      <div
+        className={`flex flex-col my-4 rounded-md relative ${
+          mobileMenuOpen && '-z-10'
+        }`}
+      >
         {/* {!user && <h3>Please sign in to post</h3>} */}
         <textarea
           onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
@@ -73,11 +76,15 @@ export default function AddPost() {
           }`}
         />
       </div>
-      <div className="space-y-2 flex items-center justify-between -mt-2 relative">
+      <div
+        className={`space-y-2 flex items-center justify-between -mt-2 relative ${
+          mobileMenuOpen && '-z-10'
+        }`}
+      >
         <button
           disabled={isDisabled}
           className={`bg-blue-600 text-white py-3 px-6 rounded-xl text-sm disabled:bg-opacity-50 min-w-[12rem] h-[46px] ${
-            !user && 'bg-[#ECEEF0] text-[#7E868C] cursor-default'
+            !user && 'cursor-default'
           }`}
           type="submit"
         >
@@ -91,7 +98,7 @@ export default function AddPost() {
           {title.length}/300
         </p>
         {isError && (
-          <div className="absolute -bottom-3 left-[35%] rounded-xl bg-[#16181A] text-[#ecedee] p-6">
+          <div className="absolute -bottom-3 md:left-[35%] rounded-xl bg-[#16181A] text-[#ecedee] sm:p-6 p-5 m-w-fit">
             <span> {errorMessage} </span>
           </div>
         )}
