@@ -49,6 +49,7 @@ export default async function handler(
           userId: prismaUser.id,
         },
       });
+      console.log('***PRISMA USER***', prismaUser);
       res.status(200).json({ result, message: 'New Post Created' });
     } catch (err) {
       res.status(403).json({ err: 'Error has occurerd while creating post' });

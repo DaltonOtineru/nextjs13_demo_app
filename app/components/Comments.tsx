@@ -15,7 +15,7 @@ export default function Comments(postId: Props) {
     return response.data;
   };
 
-  const { data, isLoading, isRefetching } = useQuery<PostType>({
+  const { data, isLoading } = useQuery<PostType>({
     queryFn: fetchComments,
     queryKey: ['comments'],
     cacheTime: 0,

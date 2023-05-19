@@ -32,7 +32,7 @@ const roboto = Roboto({
   variable: '--font-roboto',
 });
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${roboto.variable} font-sans bg-black`}>

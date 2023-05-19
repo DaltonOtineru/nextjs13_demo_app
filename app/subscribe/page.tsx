@@ -4,10 +4,13 @@ import Image from 'next/image';
 import { useRecoilValue } from 'recoil';
 import { mobileMenuState } from '../atoms/mobileMenuAtom';
 import { useState } from 'react';
+import { useSession } from 'next-auth/react';
 
 export default function Subscribe() {
-  const [alert, setAlert] = useState<boolean>(false);
   const mobileMenuOpen = useRecoilValue<boolean>(mobileMenuState);
+
+  const { data: session } = useSession();
+  const { user } = session || {};
 
   return (
     <main
@@ -35,25 +38,16 @@ export default function Subscribe() {
         </div>
         <div className="absolute bottom-0 left-0 right-0 flex space-between px-4 py-4 bg-[rgb(15_17_20)] bg-opacity-40 subscribe rounded-b-2xl backdrop-blur-[10px]">
           <div className="flex flex-col justify-center w-full text-xs text-[#d1d1d1] gap-y-1">
-            {/* <span>Available now</span>
-            <span>Use Card 4242 4242 4242 4242 to test</span> */}
-            <span>*Pro plan subscriptions will be available soon*</span>
+            <span>Available now</span>
+            <span>Use Card 4242 4242 4242 4242 to test</span>
           </div>
-          <button
-            onClick={() => setAlert(true)}
-            className="bg-[rgb(148_249_240)] bg-opacity-[.15] text-[#90EBE1] min-w-fit rounded-full px-5 py-3 cursor-pointer text-xs font-semibold flex items-center justify-center"
-          >
-            SUBSCRIBE NOW
-          </button>
+          <form action="/api/stripe" method="POST" className="min-w-fit">
+            <button className="bg-[rgb(148_249_240)] bg-opacity-[.15] text-[#90EBE1] min-w-fit rounded-full px-5 py-3 cursor-pointer text-xs font-semibold flex items-center justify-center">
+              {session ? 'Subscribe Now' : 'Sign in to Subscribe'}
+            </button>
+          </form>
         </div>
       </div>
-      {alert && (
-        <div className="w-full flex justify-end py-1">
-          <p className="text-[#F5A524] ml-auto">
-            Subscriptions will be available soon!
-          </p>
-        </div>
-      )}
     </main>
   );
 }
