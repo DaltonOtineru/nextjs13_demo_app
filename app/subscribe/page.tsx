@@ -15,8 +15,6 @@ export default function Subscribe() {
 
   const disableForm = !user || (user && subStatus) ? true : false;
 
-  // console.log(formMethod);
-
   return (
     <main
       className={`max-w-[1300px] mx-auto py-6 px-6 ${

@@ -3,6 +3,7 @@ import stripe from '@/lib/stripe';
 import prisma from '@/prisma/client';
 import { NextApiRequest, NextApiResponse } from 'next';
 import getRawBody from 'raw-body';
+import { buffer } from 'micro';
 
 export const config = {
   api: {
@@ -14,20 +15,21 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const rawBody = await getRawBody(req);
+  //   const rawBody = await getRawBody(req);
+  const rawBody = await buffer(req);
   const signature = req.headers['stripe-signature'] as string;
 
   let event: Stripe.Event;
 
   try {
     event = stripe.webhooks.constructEvent(
-      rawBody,
+      rawBody.toString(),
       signature,
       process.env.STRIPE_WEBHOOK_SECRET as string
     );
   } catch (error) {
     console.log(error);
-    return res.status(400).send('Webhook signature verification failed.');
+    return res.status(400).send('Webhook signature verification failed!!!');
   }
 
   const stripeSession = event.data.object as Stripe.Checkout.Session;
@@ -85,7 +87,23 @@ export default async function handler(
       },
     });
   }
+  if (event.type === 'customer.subscription.deleted') {
+    // Retrieve the subscription details from Stripe.
+    const subscription = await stripe.subscriptions.retrieve(
+      stripeSession.subscription as string
+    );
 
+    await prisma.user.update({
+      where: {
+        subscriptionId: subscription.id,
+      },
+      data: {
+        subscriptionStatus: subscription.status,
+      },
+    });
+  }
+
+  res.json({ received: true });
   console.log('***EVENT.TYPE', event.type);
   console.log('***EVENT.DATA', event.data);
 
