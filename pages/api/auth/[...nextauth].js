@@ -20,6 +20,10 @@ export const authOptions = {
       if (session?.user) {
         session.user.id = user.id;
       }
+      const userData = await fetch(
+        `${process.env.BASE_URL}/api/user?userId=${user.id}`
+      ).then((res) => res.json());
+      session.user.subscriptionStatus = userData.subscriptionStatus;
       return session;
     },
   },

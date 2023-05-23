@@ -3,7 +3,6 @@
 import Image from 'next/image';
 import { useRecoilValue } from 'recoil';
 import { mobileMenuState } from '../atoms/mobileMenuAtom';
-import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 
 export default function Subscribe() {
@@ -11,6 +10,12 @@ export default function Subscribe() {
 
   const { data: session } = useSession();
   const { user } = session || {};
+
+  const subStatus = user ? user.subscriptionStatus == 'active' : false;
+
+  const disableForm = !user || (user && subStatus) ? true : false;
+
+  // console.log(formMethod);
 
   return (
     <main
@@ -42,8 +47,13 @@ export default function Subscribe() {
             <span>Use Card 4242 4242 4242 4242 to test</span>
           </div>
           <form action="/api/stripe" method="POST" className="min-w-fit">
-            <button className="bg-[rgb(148_249_240)] bg-opacity-[.15] text-[#90EBE1] min-w-fit rounded-full px-5 py-3 cursor-pointer text-xs font-semibold flex items-center justify-center">
-              {session ? 'Subscribe Now' : 'Sign in to Subscribe'}
+            <button
+              className="bg-[rgb(148_249_240)] bg-opacity-[.15] text-[#90EBE1] min-w-fit rounded-full px-5 py-3 cursor-pointer text-xs font-semibold flex items-center justify-center"
+              disabled={disableForm}
+            >
+              {session && !subStatus && 'Subscribe Now'}
+              {session && subStatus && 'You are already subscribed'}
+              {!session && 'Sign in to Subscribe'}
             </button>
           </form>
         </div>
