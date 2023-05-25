@@ -2,7 +2,6 @@ import Stripe from 'stripe';
 import stripe from '@/lib/stripe';
 import prisma from '@/prisma/client';
 import { NextApiRequest, NextApiResponse } from 'next';
-import getRawBody from 'raw-body';
 import { buffer } from 'micro';
 
 export const config = {
@@ -15,7 +14,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  //   const rawBody = await getRawBody(req);
   const rawBody = await buffer(req);
   const signature = req.headers['stripe-signature'] as string;
 
@@ -87,6 +85,23 @@ export default async function handler(
       },
     });
   }
+
+  if (event.type === 'customer.subscription.updated') {
+    // Retrieve the subscription details from Stripe.
+    const subscription = await stripe.subscriptions.retrieve(
+      stripeSession.subscription as string
+    );
+
+    await prisma.user.update({
+      where: {
+        subscriptionId: subscription.id,
+      },
+      data: {
+        subscriptionStatus: subscription.status,
+      },
+    });
+  }
+
   if (event.type === 'customer.subscription.deleted') {
     // Retrieve the subscription details from Stripe.
     const subscription = await stripe.subscriptions.retrieve(

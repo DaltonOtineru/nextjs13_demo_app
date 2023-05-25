@@ -15,7 +15,7 @@ export default function Logged({ image }: User) {
 
   return (
     <li className="flex gap-4 items-center">
-      <Link href={'/'}>
+      <Link href={'/subscribe'}>
         <div className="relative">
           <Image
             width={40}
