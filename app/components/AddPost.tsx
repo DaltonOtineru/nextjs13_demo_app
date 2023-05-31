@@ -63,8 +63,10 @@ export default function AddPost() {
     const res = await axios.post('/api/enhanceMessage', {
       prompt: title,
     });
+    console.log(res, 'RES-1');
     if (res.status === 200) {
-      const GPTdata = res;
+      const GPTdata = res || {};
+      console.log(res, 'RES');
       setTitle(GPTdata.data.content);
     } else {
       setEnhanceError(true);

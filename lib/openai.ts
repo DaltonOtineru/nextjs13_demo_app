@@ -5,9 +5,3 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 export default openai;
-
-// const response = await openai.createEdit({
-//   model: "text-davinci-edit-001",
-//   input: "What day of the wek is it?",
-//   instruction: "Fix the spelling mistakes",
-// });
