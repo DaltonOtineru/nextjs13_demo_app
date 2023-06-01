@@ -11,11 +11,13 @@ import { useState } from 'react';
 import { DeleteIcon } from './Icons/Delete';
 import Toggle from '../dashboard/Toggle';
 import { useRouter, useSelectedLayoutSegment } from 'next/navigation';
+import { FaCrown } from 'react-icons/fa';
 
 type Props = {
   id: string;
   avatar: string;
   name: string;
+  subStatus?: string;
   postTitle: string;
   createdAt: string;
   email: string;
@@ -44,6 +46,7 @@ export default function Post({
   createdAt,
   likes,
   email,
+  subStatus,
 }: Props) {
   const { data: session } = useSession();
   const { user } = session || {};
@@ -120,7 +123,7 @@ export default function Post({
   return (
     <div className="bg-[#16181A] border-[1px] border-white border-opacity-20 my-8 p-4 rounded-xl">
       <div className="flex items-center gap-4">
-        <div className="rounded-full w-[42px] h-[42px] flex items-center justify-center  from-[#102C4C] via-[#AD007C] to-[#571D91] ">
+        <div className="rounded-full w-[42px] h-[42px] flex items-center justify-center  from-[#102C4C] via-[#AD007C] to-[#571D91] relative">
           <Image
             className="rounded-full"
             width={36}
@@ -128,8 +131,15 @@ export default function Post({
             src={avatar}
             alt="User Avatar"
           />
+          {subStatus === 'active' && (
+            <div className="absolute -top-3 -right-3 px-2 py-2 flex items-center justify-center bg-blue-600 rounded-full">
+              <span className="text-white text-xs m-auto font-bold">
+                <FaCrown className="w-4" />
+              </span>
+            </div>
+          )}
         </div>
-        <div>
+        <div className="ml-1">
           <h3 className="font-semibold text-[#ecedee]">{name}</h3>
           <p className="text-[#9BA1A6] font-light">{formatDate(createdAt)} </p>
         </div>

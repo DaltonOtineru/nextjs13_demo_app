@@ -32,6 +32,7 @@ export default function Home() {
             name={post.user.name}
             avatar={post.user.image}
             email={post.user.email}
+            subStatus={post.user.subscriptionStatus}
             postTitle={post.title}
             comments={post.comments}
             id={post.id}

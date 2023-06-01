@@ -55,7 +55,10 @@ export default function AddPost() {
   const enhanceWithAI = async () => {
     if (enhancing) return;
     if (title.length < 1) {
-      setEnhanceError(true);
+      setEnhancing(true);
+      setIsError(true);
+      setErrorMessage('Cannot enhance empty post');
+      setTimeout(() => setEnhancing(false), 500);
       return;
     }
     setEnhancing(true);
@@ -63,10 +66,8 @@ export default function AddPost() {
     const res = await axios.post('/api/enhanceMessage', {
       prompt: title,
     });
-    console.log(res, 'RES-1');
     if (res.status === 200) {
       const GPTdata = res || {};
-      console.log(res, 'RES');
       setTitle(GPTdata.data.content);
     } else {
       setEnhanceError(true);
@@ -100,21 +101,22 @@ export default function AddPost() {
         <div className="space-x-2 flex">
           <button
             disabled={isDisabled}
-            className={`bg-blue-600 text-white py-3 px-6 rounded-xl text-sm disabled:bg-opacity-50 min-w-[10rem] h-[46px] ${
+            className={`bg-blue-600 text-white py-3 px-6 rounded-xl text-sm disabled:bg-opacity-50 min-w-[6rem] h-[46px] ${
               !user && 'cursor-default'
             }`}
             type="submit"
           >
             {isDisabled ? <Dots /> : 'Post'}
           </button>
-          <div
-            className={`bg-purple-600 text-white py-3 px-6 rounded-xl text-sm disabled:bg-opacity-50 min-w-[10rem] h-[46px] cursor-pointer ${
+          <button
+            className={`bg-purple-500 text-white py-3 px-6 rounded-xl text-sm disabled:bg-opacity-50 min-w-[10rem] h-[46px] cursor-pointer ${
               !user && 'cursor-default'
             }`}
             onClick={enhanceWithAI}
+            type="button"
           >
-            Enhance with AI
-          </div>
+            {enhancing ? <Dots /> : 'Enhance with AI'}
+          </button>
         </div>
 
         <p

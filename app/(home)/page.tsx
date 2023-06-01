@@ -20,7 +20,7 @@ export default async function Home() {
       </h3>
       <a
         className="github__btnWrap "
-        href="https://github.com/daltonotineru/poster"
+        href="https://github.com/daltonotineru/nextjs13_demo_app"
         target="_blank"
       >
         <button className="rounded-xl text-sm px-3 py-2 text-white transition-all duration-300 ease-in-out github__btn bg-opacity-90">
