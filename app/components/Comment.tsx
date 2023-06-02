@@ -21,6 +21,7 @@ type Props = {
       id: string;
       image: string;
       name: string;
+      subscriptionStatus?: string;
     };
   };
 };
@@ -53,6 +54,12 @@ export default function Comment({ comment }: Props) {
     handleDelete(comment.postId);
   };
 
+  const isSubbed = comment
+    ? comment.user.subscriptionStatus == 'active'
+    : false;
+
+  console.log(comment.user.subscriptionStatus);
+
   return (
     <>
       <div className="bg-[#16181A] border-[1px] border-white border-opacity-20 my-8 p-4 rounded-xl">
@@ -75,6 +82,7 @@ export default function Comment({ comment }: Props) {
         </div>
         <div className="my-8">
           <p className="break-all text-[#ecedee]">{comment?.message}</p>
+          <p>{isSubbed}</p>
         </div>
         {user && user?.email === comment?.user?.email && (
           <DeleteIcon onClick={() => setToggle(true)} />

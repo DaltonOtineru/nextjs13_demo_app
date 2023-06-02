@@ -77,11 +77,7 @@ export default function AddPost() {
 
   return (
     <form onSubmit={submitPost}>
-      <div
-        className={`flex flex-col my-4 rounded-md relative ${
-          mobileMenuOpen && '-z-10'
-        }`}
-      >
+      <div className={`flex flex-col my-4 rounded-md `}>
         <textarea
           onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
             setTitle(e.target.value)

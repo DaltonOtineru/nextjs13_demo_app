@@ -8,6 +8,7 @@ export type PostType = {
     id: string;
     image: string;
     name: string;
+    subscriptionStatus?: string;
   };
   comments?: {
     createdAt: string;

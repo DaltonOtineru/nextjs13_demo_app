@@ -22,14 +22,7 @@ export default function PostDetail(url: URL) {
     return response.data;
   };
 
-  const {
-    data,
-    isLoading,
-    isRefetching,
-    isFetching,
-    isInitialLoading,
-    isPreviousData,
-  } = useQuery<PostType>({
+  const { data, isLoading } = useQuery<PostType>({
     queryKey: ['detail-post'],
     queryFn: () => fetchDetails(url.params.slug),
     cacheTime: 0,
@@ -55,6 +48,7 @@ export default function PostDetail(url: URL) {
           id={data?.id!}
           name={data?.user.name!}
           avatar={data?.user.image!}
+          subStatus={data?.user.subscriptionStatus}
           postTitle={data?.title!}
           comments={data?.comments}
           createdAt={data?.createdAt!}

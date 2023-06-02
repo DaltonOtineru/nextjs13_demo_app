@@ -121,9 +121,9 @@ export default function Post({
   };
 
   return (
-    <div className="bg-[#16181A] border-[1px] border-white border-opacity-20 my-8 p-4 rounded-xl">
+    <div className="bg-[#16181A] border-[1px] border-white border-opacity-20 my-8 p-4 rounded-xl z-0">
       <div className="flex items-center gap-4">
-        <div className="rounded-full w-[42px] h-[42px] flex items-center justify-center  from-[#102C4C] via-[#AD007C] to-[#571D91] relative">
+        <div className="rounded-full w-[42px] h-[42px] flex items-center justify-center">
           <Image
             className="rounded-full"
             width={36}
@@ -131,15 +131,15 @@ export default function Post({
             src={avatar}
             alt="User Avatar"
           />
-          {subStatus === 'active' && (
-            <div className="absolute -top-3 -right-3 px-2 py-2 flex items-center justify-center bg-blue-600 rounded-full">
+          {/* {subStatus === 'active' && (
+            <div className="absolute -top-3 -right-3 px-2 py-2 flex items-center justify-center bg-blue-600 rounded-full z-10">
               <span className="text-white text-xs m-auto font-bold">
                 <FaCrown className="w-4" />
               </span>
             </div>
-          )}
+          )} */}
         </div>
-        <div className="ml-1">
+        <div className="ml-0">
           <h3 className="font-semibold text-[#ecedee]">{name}</h3>
           <p className="text-[#9BA1A6] font-light">{formatDate(createdAt)} </p>
         </div>

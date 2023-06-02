@@ -11,6 +11,7 @@ export type CommentType = {
       id: string;
       image: string;
       name: string;
+      subscriptionStatus?: string;
     };
   };
 };
