@@ -2,12 +2,14 @@
 
 import AddComment from '@/app/components/AddComment';
 import Comments from '@/app/components/Comments';
+import Dots from '@/app/components/Icons/Dots';
 import Loader from '@/app/components/Loader';
 import Post from '@/app/components/Post';
 import { PostType } from '@/app/types/Post';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Link from 'next/link';
+import { useState } from 'react';
 import { BsArrowLeft } from 'react-icons/bs';
 
 type URL = {

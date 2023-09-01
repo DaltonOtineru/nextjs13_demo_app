@@ -5,6 +5,9 @@
 *::-webkit-scrollbar {
   display: none;
 }
+*::selection {
+  background: #ff6bd5;
+}
 .github__btnWrap {
   box-shadow: 0 10px 14px 8px #0952a5;
 }
