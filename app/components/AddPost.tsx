@@ -54,6 +54,7 @@ export default function AddPost() {
 
   const enhanceWithAI = async () => {
     if (enhancing) return;
+
     if (title.length < 1) {
       setEnhancing(true);
       setIsError(true);
@@ -62,10 +63,12 @@ export default function AddPost() {
       return;
     }
     setEnhancing(true);
+
     setEnhanceError(false);
     const res = await axios.post('/api/enhanceMessage', {
       prompt: title,
     });
+    console.log(res.data.content);
     if (res.status === 200) {
       const GPTdata = res || {};
       setTitle(GPTdata.data.content);
@@ -104,7 +107,7 @@ export default function AddPost() {
           >
             {isDisabled ? <Dots /> : 'Post'}
           </button>
-          <button
+          {/* <button
             className={`bg-purple-500 text-white py-3 px-6 rounded-xl text-sm disabled:bg-opacity-50 min-w-[10rem] h-[46px] cursor-pointer ${
               !user && 'cursor-default'
             }`}
@@ -112,7 +115,7 @@ export default function AddPost() {
             type="button"
           >
             {enhancing ? <Dots /> : 'Enhance with AI'}
-          </button>
+          </button> */}
         </div>
 
         <p

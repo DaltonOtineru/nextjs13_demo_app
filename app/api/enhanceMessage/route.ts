@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
   const { prompt } = await request.json();
+  console.log(prompt);
 
   const chatCompletion = await openai.createChatCompletion({
     model: 'gpt-3.5-turbo',

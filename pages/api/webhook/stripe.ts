@@ -119,8 +119,6 @@ export default async function handler(
   }
 
   res.json({ received: true });
-  console.log('***EVENT.TYPE', event.type);
-  console.log('***EVENT.DATA', event.data);
 
   return res.status(200).end();
 }
