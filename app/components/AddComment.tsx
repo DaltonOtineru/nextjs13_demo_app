@@ -25,7 +25,6 @@ export default function AddComment({ id }: PostProps) {
   const [focus, setFocus] = useState<boolean>(false);
 
   const mobileMenuOpen = useRecoilValue<boolean>(mobileMenuState);
-
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation(
