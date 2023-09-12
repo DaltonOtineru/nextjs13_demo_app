@@ -1,11 +1,9 @@
-import { Suspense } from 'react';
+// import { Suspense } from 'react';
 import Subscribe from './page';
-import Loading from './loading';
+// import Loading from './loading';
 
 export default async function SubscribeLayout() {
-  return (
-    <Suspense fallback={<Loading />}>
-      <Subscribe />
-    </Suspense>
-  );
+  return <Subscribe />;
 }
+
+// export const revalidate = 0;

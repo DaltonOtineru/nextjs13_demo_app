@@ -2,6 +2,7 @@ import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import { getServerSession } from 'next-auth';
 import Image from 'next/image';
 import CardGrid from './CardGrid';
+import Avatar from './Avatar';
 
 export const metadata = {
   title: 'Next.js 13 Demo App',
@@ -27,25 +28,7 @@ export default async function Home() {
           Source Code on GitHub
         </button>
       </a>
-      <div className="flex gap-x-4 items-center mt-4">
-        <Image
-          src="/avatar.jpeg"
-          alt="avatar"
-          height={40}
-          width={40}
-          className="w-12 h-12 rounded-full"
-        />
-        <div className="flex-col gap-y-1 leading-tight">
-          <p className="text-[#ecedee]">Dalton Otineru</p>
-          <a
-            href="https://github.com/daltonotineru"
-            target="_blank"
-            className="text-[#0072F5]"
-          >
-            github.com/daltonotineru
-          </a>
-        </div>
-      </div>
+      <Avatar />
       <h3 className="text-[40px] text-[#ecedee] font-semibold my-6">
         Features
       </h3>
